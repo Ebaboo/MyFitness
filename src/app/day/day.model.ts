@@ -1,4 +1,4 @@
-export class CurrentDayModel {
+export class DayModel {
   public date: Date;
 
   constructor(date: Date) {

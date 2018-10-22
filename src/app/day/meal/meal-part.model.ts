@@ -4,9 +4,9 @@ export class MealPartModel {
   public food: FoodModel;
   public grams: number;
 
-  constructor(food: FoodModel, gramms: number) {
+  constructor(food: FoodModel, grams: number) {
     this.food = food;
-    this.grams = gramms;
+    this.grams = grams;
   }
 
   getCalories(): number {

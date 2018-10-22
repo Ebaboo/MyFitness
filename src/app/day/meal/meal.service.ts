@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CurrentDayModel } from '../current-day.model';
+import { DayModel } from '../day.model';
 import { MealModel } from './meal.model';
 
 @Injectable({
@@ -10,11 +10,11 @@ export class MealService {
 
   constructor() { }
 
-  getMealsForDay(currentDay: CurrentDayModel): MealModel[]  {
+  getMealsForDay(currentDay: DayModel): MealModel[]  {
     return null;
   }
 
-  addMealToDay(day: CurrentDayModel, meal: MealModel) {
+  addMealToDay(day: DayModel, meal: MealModel) {
 
   }
 

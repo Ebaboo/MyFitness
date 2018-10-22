@@ -1,27 +1,27 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CurrentDayService } from './current-day.service';
-import { CurrentDayModel } from './current-day.model';
+import { DayService } from './day.service';
 import { NgForm } from '@angular/forms';
 import { MealService } from './meal/meal.service';
 import { MealModel } from './meal/meal.model';
 import { MealPartModel } from './meal/meal-part.model';
 import { FoodModel } from './meal/food/food.model';
+import { DayModel } from './day.model';
 
 @Component({
   selector: 'app-current-day',
-  templateUrl: './current-day.component.html',
-  styleUrls: ['./current-day.component.css']
+  templateUrl: './day.component.html',
+  styleUrls: ['./day.component.css']
 })
-export class CurrentDayComponent implements OnInit {
+export class DayComponent implements OnInit {
   @ViewChild('f') foodForm: NgForm;
-  currentDay: CurrentDayModel;
+  day: DayModel;
 
-  constructor(private currentDayService: CurrentDayService,
+  constructor(private currentDayService: DayService,
               private mealService: MealService) {
   }
 
   ngOnInit() {
-    this.currentDay = this.currentDayService.getCurrentDay();
+    this.day = this.currentDayService.getCurrentDay();
   }
 
   onSubmit(data: NgForm) {
@@ -29,7 +29,7 @@ export class CurrentDayComponent implements OnInit {
     switch (formData.whatMeal) {
       case 'breakfast':
         this.mealService.addMealToDay(
-          this.currentDay,
+          this.day,
           new MealModel(
             Math.random(),
             [new MealPartModel(
@@ -42,7 +42,7 @@ export class CurrentDayComponent implements OnInit {
         break;
       case 'lunch':
         this.mealService.addMealToDay(
-          this.currentDay,
+          this.day,
           new MealModel(
             Math.random(),
             [new MealPartModel(
@@ -55,7 +55,7 @@ export class CurrentDayComponent implements OnInit {
         break;
       case 'dinner':
         this.mealService.addMealToDay(
-          this.currentDay,
+          this.day,
           new MealModel(
             Math.random(),
             [new MealPartModel(

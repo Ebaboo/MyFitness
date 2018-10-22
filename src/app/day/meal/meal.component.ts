@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MealModel } from './meal.model';
-import { CurrentDayService } from '../current-day.service';
+import { DayService } from '../day.service';
 import { MealService } from './meal.service';
-import { CurrentDayModel } from '../current-day.model';
 
 @Component({
   selector: 'app-meal',
@@ -12,11 +11,11 @@ import { CurrentDayModel } from '../current-day.model';
 export class MealComponent implements OnInit {
   meals: MealModel[];
 
-  constructor(private currentDayService: CurrentDayService,
+  constructor(private dayService: DayService,
               private mealService: MealService) { }
 
   ngOnInit() {
-    this.meals = this.mealService.getMealsForDay(this.currentDayService.getCurrentDay());
+    this.meals = this.mealService.getMealsForDay(this.dayService.getCurrentDay());
   }
 
 }
