@@ -1,0 +1,17 @@
+.breakfast-box{
+    padding: 15px;
+    margin-bottom: 15px;
+    background: rgba(255,0,0,0.3)
+}
+
+.lunch-box{
+    padding: 15px;
+    margin-bottom: 15px;
+    background: rgba(0,255,0,0.3)
+}
+
+.dinner-box{
+    padding: 15px;
+    margin-bottom: 15px;
+    background: rgba(0,0,255,0.3)
+}
