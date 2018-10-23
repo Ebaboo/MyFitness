@@ -1,4 +1,4 @@
-enum MealType {
+export enum MealTypeModel {
   Breakfast,
   Lunch,
   Dinner

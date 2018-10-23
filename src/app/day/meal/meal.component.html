@@ -1,15 +1,26 @@
-<div ngClass="breakfast-box">
-<ul>
-<li *ngFor="let meal of meals"></li>
-</ul>
-</div>
-<div ngClass="lunch-box">
-  <ul>
-    <li *ngFor="let meal of meals"></li>
-  </ul>
-</div>
-<div ngClass="dinner-box">
-  <ul>
-    <li *ngFor="let meal of meals"></li>
-  </ul>
+<div *ngFor="let meal of meals">
+  <div *ngIf="meal.mealType === 0" ngClass="breakfast-box">
+    <h2>Breakfast</h2>
+    <ul>
+      <li *ngFor="let mealParts of meal.mealParts">{{ mealParts.food.name }},
+        {{ 'Total Amount: ' + mealParts.grams}},
+        {{ 'Total Calories: ' + mealParts.food.calories * mealParts.grams }}</li>
+    </ul>
+  </div>
+  <div *ngIf="meal.mealType === 1" ngClass="lunch-box">
+    <h2>Lunch</h2>
+    <ul>
+      <li *ngFor="let mealParts of meal.mealParts">{{ mealParts.food.name }},
+        {{ 'Total Amount: ' + mealParts.grams}},
+        {{ 'Total Calories: ' + mealParts.food.calories * mealParts.grams }}</li>
+    </ul>
+  </div>
+  <div *ngIf="meal.mealType === 2" ngClass="dinner-box">
+    <h2>Dinner</h2>
+    <ul>
+      <li *ngFor="let mealParts of meal.mealParts">{{ mealParts.food.name }},
+        {{ 'Total Amount: ' + mealParts.grams}},
+        {{ 'Total Calories: ' + mealParts.food.calories * mealParts.grams }}</li>
+    </ul>
+  </div>
 </div>

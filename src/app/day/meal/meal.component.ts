@@ -11,11 +11,24 @@ import { MealService } from './meal.service';
 export class MealComponent implements OnInit {
   meals: MealModel[];
 
+
   constructor(private dayService: DayService,
               private mealService: MealService) { }
 
   ngOnInit() {
-    this.meals = this.mealService.getMealsForDay(this.dayService.getCurrentDay());
+    this.mealService.mealsChanged.subscribe(
+      (meals: MealModel[]) => {
+        this.meals = meals;
+        this.meals.sort(
+          (a, b) => a.mealType < b.mealType ? -1 : a.mealType > b.mealType ? 1 : 0
+        );
+        console.log(this.meals);
+      }
+    );
+    this.meals = this.mealService.getMealsForDay();
+    this.meals.sort(
+      (a, b) => a.mealType < b.mealType ? -1 : a.mealType > b.mealType ? 1 : 0
+    );
   }
 
 }

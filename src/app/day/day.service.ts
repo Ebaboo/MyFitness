@@ -12,9 +12,10 @@ export class DayService implements OnInit {
 
   }
 
-  getCurrentDay() {
+  getDay() {
     return this.day;
   }
+
 
 
   constructor() {
