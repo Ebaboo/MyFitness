@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="container">
+    <h1>
+      All Ingredients
+    </h1>
+    <hr>
+    <button routerLink="ingredient/new" class="btn-primary btn">Add Ingredient</button>
+    <br><br>
+    <ul *ngFor="let ingredient of ingredients">
+      <li><a routerLink="ingredient/editIngredient/{{ ingredient.id }}">
+        Name: {{ingredient.name}}, Calories: {{ ingredient.calories }}
+      </a></li>
+    </ul>
+  </div>
+</div>

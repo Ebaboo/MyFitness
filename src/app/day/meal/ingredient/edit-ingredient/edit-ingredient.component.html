@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="container">
+    <h1 *ngIf="editMode; else elseBlock">Edit Ingredient: {{ ingredient.name }}</h1>
+    <ng-template #elseBlock><h1>Create Component</h1></ng-template>
+
+    <hr>
+    <form [formGroup]="ingredientForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="name">
+          <input
+              class="form-control"
+              type="text"
+              id="name"
+              formControlName="ingredientName">
+
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label for="calories">
+          <input
+              class="form-control"
+              type="text"
+              formControlName="ingredientCalories"
+              id="calories">
+        </label>
+      </div>
+
+
+      <button type="submit" class="btn-success btn">Submit changes</button>
+      <button routerLink="/" type="submit" class="btn-danger btn">Cancel</button>
+    </form>
+
+  </div>
+</div>
+

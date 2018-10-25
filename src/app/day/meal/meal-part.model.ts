@@ -1,10 +1,10 @@
-import { FoodModel } from './food/food.model';
+import { IngredientModel } from './ingredient/ingredient.model';
 
 export class MealPartModel {
-  public food: FoodModel;
+  public food: IngredientModel;
   public grams: number;
 
-  constructor(food: FoodModel, grams: number) {
+  constructor(food: IngredientModel, grams: number) {
     this.food = food;
     this.grams = grams;
   }

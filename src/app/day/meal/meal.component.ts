@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { MealModel } from './meal.model';
 import { DayService } from '../day.service';
 import { MealService } from './meal.service';
-
 @Component({
   selector: 'app-meal',
   templateUrl: './meal.component.html',
   styleUrls: ['./meal.component.css']
 })
 export class MealComponent implements OnInit {
-  meals: MealModel[];
+  meals: MealModel[] = [];
 
 
   constructor(private dayService: DayService,
@@ -22,7 +21,6 @@ export class MealComponent implements OnInit {
         this.meals.sort(
           (a, b) => a.mealType < b.mealType ? -1 : a.mealType > b.mealType ? 1 : 0
         );
-        console.log(this.meals);
       }
     );
     this.meals = this.mealService.getMealsForDay();
@@ -30,5 +28,10 @@ export class MealComponent implements OnInit {
       (a, b) => a.mealType < b.mealType ? -1 : a.mealType > b.mealType ? 1 : 0
     );
   }
+
+  onDeleteIngredient(mealIndex, mealPartIndex) {
+    this.mealService.DeleteIngredient(mealIndex, mealPartIndex);
+  }
+
 
 }

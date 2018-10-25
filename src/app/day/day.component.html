@@ -1,20 +1,20 @@
 <h1>Current Day: {{ day.date | date: 'dd/MM/yy' }}</h1>
 <div class="container">
-  <div class="row">
     <form (ngSubmit)="onSubmit(f)" #f="ngForm">
       <div class="row">
       <div class="col-md-4 form-group">
-      <label for="name">Name: </label>
-      <input
-          class="form-control"
-          type="text"
-          id="name"
-          name="name"
-          ngModel
-          required>
+        <label for="ingredientId">Выберите пищу:</label>
+        <select class="form-control"
+            name="ingredientId"
+            id="ingredientId"
+            ngModel>
+          <option *ngFor="let ingredient of ingredients" value="{{ ingredient.id }}">
+            {{ ingredient.name }}, {{ ingredient.calories }}
+          </option>
+        </select>
       </div>
         <div class="col-md-4 form-group">
-        <label for="amount">Amount: </label>
+        <label for="amount">Количество: </label>
         <input
             class="form-control"
             type="number"
@@ -25,7 +25,7 @@
       </div>
 
         <div class="col-md-4 form-group">
-          <label for="meal">Meal: </label>
+          <label for="meal">Вид приема пищи: </label>
           <select
               id="meal"
               name="whatMeal"
@@ -34,10 +34,10 @@
             <option value="lunch">Lunch</option>
             <option value="dinner">Dinner</option>
           </select>
-
         </div>
-
-      <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Add food</button>
+        <div class="row">
+          <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Add food</button>
+        </div>
       </div>
     </form>
   </div>
@@ -47,5 +47,5 @@
       <app-meal></app-meal>
     </div>
   </div>
-</div>
+
 

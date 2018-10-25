@@ -1,26 +1,45 @@
-<div *ngFor="let meal of meals">
-  <div *ngIf="meal.mealType === 0" ngClass="breakfast-box">
-    <h2>Breakfast</h2>
-    <ul>
-      <li *ngFor="let mealParts of meal.mealParts">{{ mealParts.food.name }},
+<div ngClass="breakfast-box">
+  <h2>Breakfast</h2>
+<div *ngFor="let meal of meals; let mealIndex = index">
+    <ul *ngIf="meal.mealType === 0">
+      <li *ngFor="let mealParts of meal.mealParts; let mealPartIndex = index">
+        <a routerLink="meal/ingredient/editIngredient/{{ mealParts.food.id }}">
+        {{ mealParts.food.name }},
         {{ 'Total Amount: ' + mealParts.grams}},
-        {{ 'Total Calories: ' + mealParts.food.calories * mealParts.grams }}</li>
+        {{ 'Total Calories: ' + mealParts.food.calories * mealParts.grams }}
+        </a>
+      <button (click)="onDeleteIngredient(mealIndex, mealPartIndex)"> X </button>
+      </li>
     </ul>
   </div>
-  <div *ngIf="meal.mealType === 1" ngClass="lunch-box">
-    <h2>Lunch</h2>
-    <ul>
-      <li *ngFor="let mealParts of meal.mealParts">{{ mealParts.food.name }},
+</div>
+<div ngClass="lunch-box">
+  <h2>Lunch</h2>
+<div *ngFor="let meal of meals; let mealIndex = index">
+    <ul *ngIf="meal.mealType === 1">
+      <li *ngFor="let mealParts of meal.mealParts; let mealPartIndex = index">
+        <a routerLink="meal/ingredient/editIngredient/{{ mealParts.food.id }}">
+        {{ mealParts.food.name }},
         {{ 'Total Amount: ' + mealParts.grams}},
-        {{ 'Total Calories: ' + mealParts.food.calories * mealParts.grams }}</li>
+        {{ 'Total Calories: ' + mealParts.food.calories * mealParts.grams }}
+        </a>
+        <button (click)="onDeleteIngredient(mealIndex, mealPartIndex)"> X </button>
+      </li>
     </ul>
   </div>
-  <div *ngIf="meal.mealType === 2" ngClass="dinner-box">
-    <h2>Dinner</h2>
-    <ul>
-      <li *ngFor="let mealParts of meal.mealParts">{{ mealParts.food.name }},
+</div>
+<div  ngClass="dinner-box">
+  <h2>Dinner</h2>
+<div *ngFor="let meal of meals; let mealIndex = index">
+    <ul *ngIf="meal.mealType === 2">
+      <li *ngFor="let mealParts of meal.mealParts; let mealPartIndex = index">
+        <a routerLink="meal/ingredient/editIngredient/{{ mealParts.food.id }}">
+        {{ mealParts.food.name }},
         {{ 'Total Amount: ' + mealParts.grams}},
-        {{ 'Total Calories: ' + mealParts.food.calories * mealParts.grams }}</li>
+        {{ 'Total Calories: ' + mealParts.food.calories * mealParts.grams }}
+        </a>
+        <button (click)="onDeleteIngredient(mealIndex, mealPartIndex)"> X </button>
+      </li>
     </ul>
   </div>
 </div>

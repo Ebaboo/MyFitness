@@ -4,9 +4,10 @@ import { NgForm } from '@angular/forms';
 import { MealService } from './meal/meal.service';
 import { MealModel } from './meal/meal.model';
 import { MealPartModel } from './meal/meal-part.model';
-import { FoodModel } from './meal/food/food.model';
+import { IngredientModel } from './meal/ingredient/ingredient.model';
 import { DayModel } from './day.model';
 import { MealTypeModel } from './meal/meal-type.model';
+import { IngredientService } from './meal/ingredient/ingredient.service';
 
 @Component({
   selector: 'app-current-day',
@@ -16,31 +17,36 @@ import { MealTypeModel } from './meal/meal-type.model';
 export class DayComponent implements OnInit {
   @ViewChild('f') foodForm: NgForm;
   day: DayModel;
+  ingredients: IngredientModel[] = [];
 
   constructor(private dayService: DayService,
-              private mealService: MealService) {
+              private mealService: MealService,
+              private ingredientsService: IngredientService) {
   }
 
   ngOnInit() {
     this.day = this.dayService.getDay();
+    this.ingredients = this.ingredientsService.getIngredients();
   }
 
-  onSubmit(data: NgForm) {
-    const formData = data.value;
+  onSubmit() {
+    const formData = this.foodForm.value;
+    console.log(formData);
+    const ingredient = this.ingredientsService.getIngredientById(formData.ingredientId);
     switch (formData.whatMeal) {
       case 'breakfast':
         this.mealService.addMealPartToMeal(
           MealTypeModel.Breakfast,
           new MealPartModel(
-              new FoodModel(formData.name, 200),
-              formData.amount
-        ));
+            ingredient,
+            formData.amount
+          ));
         break;
       case 'lunch':
         this.mealService.addMealPartToMeal(
           MealTypeModel.Lunch,
           new MealPartModel(
-            new FoodModel(formData.name, 200),
+            ingredient,
             formData.amount
           ));
         break;
@@ -48,7 +54,7 @@ export class DayComponent implements OnInit {
         this.mealService.addMealPartToMeal(
           MealTypeModel.Dinner,
           new MealPartModel(
-            new FoodModel(formData.name, 200),
+            ingredient,
             formData.amount
           ));
         break;
