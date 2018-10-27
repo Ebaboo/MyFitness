@@ -26,6 +26,7 @@ export class EditIngredientComponent implements OnInit {
         this.id = params['id'];
         this.editMode = params['id'] != null;
         this.initForm();
+        window.scroll(0, 0);
       }
     );
   }

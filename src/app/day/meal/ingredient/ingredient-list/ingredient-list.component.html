@@ -1,15 +1,23 @@
-<div class="row">
-  <div class="container">
-    <h1>
+<h1>
       All Ingredients
     </h1>
     <hr>
+
+    <div class="form-group">
+      <label for="searchBox"></label>
+      <input
+          type="text"
+          id="searchBox"
+          class="form-control"
+          placeholder="Search for ingredient"
+          [(ngModel)]="searchStr"
+      >
+    </div>
+    <hr>
     <button routerLink="ingredient/new" class="btn-primary btn">Add Ingredient</button>
     <br><br>
-    <ul *ngFor="let ingredient of ingredients">
+    <ul *ngFor="let ingredient of ingredients | searchIngredients:searchStr">
       <li><a routerLink="ingredient/editIngredient/{{ ingredient.id }}">
-        Name: {{ingredient.name}}, Calories: {{ ingredient.calories }}
+        {{ingredient.name | titlecase }}, Calories: {{ ingredient.calories }}
       </a></li>
     </ul>
-  </div>
-</div>

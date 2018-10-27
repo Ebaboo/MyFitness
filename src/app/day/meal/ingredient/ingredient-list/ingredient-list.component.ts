@@ -9,6 +9,7 @@ import { IngredientService } from '../ingredient.service';
 })
 export class IngredientListComponent implements OnInit {
   ingredients: IngredientModel[];
+  searchStr = '';
 
   constructor(private ingredientService: IngredientService) { }
 

@@ -9,8 +9,10 @@ import { Subject } from 'rxjs';
 export class IngredientService {
   ingredientsChanged = new Subject<IngredientModel[]>();
   ingredients: IngredientModel[] = [
-    new IngredientModel(UUID.UUID(), 'Гречневая каша', 200),
-    new IngredientModel(UUID.UUID(), 'Хлеб', 550)
+    new IngredientModel(UUID.UUID(), 'bread', 200),
+    new IngredientModel(UUID.UUID(), 'Steak', 550),
+    new IngredientModel(UUID.UUID(), 'Гречневая каша', 550),
+    new IngredientModel(UUID.UUID(), 'Пузовик', 550),
   ];
 
   constructor() {
@@ -31,7 +33,7 @@ export class IngredientService {
     this.ingredients.map(
       (ingredient) => {
         if (ingredient.id === id) {
-          ingredient = ingredientData;
+          ingredient.name = ingredientData.ingredientName;
           ingredient.calories = ingredientData.ingredientCalories;
         }
       }

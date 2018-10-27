@@ -35,15 +35,16 @@
             <option value="dinner">Dinner</option>
           </select>
         </div>
-        <div class="row">
-          <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Add food</button>
-        </div>
       </div>
+        <div class="row">
+          <div class="col-md-4">
+          <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Add food</button>
+          <br><br>
+          </div>
+        </div>
     </form>
-  </div>
 
   <div class="row">
-    <div class="col-md-8 col-md-offset-2">
       <app-meal></app-meal>
     </div>
   </div>
