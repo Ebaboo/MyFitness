@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IngredientModel } from '../ingredient.model';
 import { IngredientService } from '../ingredient.service';
-
 @Component({
   selector: 'app-ingredient-list',
   templateUrl: './ingredient-list.component.html',

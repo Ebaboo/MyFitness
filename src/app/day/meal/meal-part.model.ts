@@ -4,8 +4,8 @@ export class MealPartModel {
   public ingredient: IngredientModel;
   public grams: number;
 
-  constructor(food: IngredientModel, grams: number) {
-    this.ingredient = food;
+  constructor(ingredient: IngredientModel, grams: number) {
+    this.ingredient = ingredient;
     this.grams = grams;
   }
 

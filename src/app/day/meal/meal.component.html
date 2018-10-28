@@ -2,9 +2,9 @@
   <mat-card ngClass="breakfast-box">
         <h2>Breakfast</h2>
         <div *ngFor="let meal of meals; let mealIndex = index">
-          <ul *ngIf="meal.mealType === 0">
-            <li *ngFor="let mealParts of meal.mealParts; let mealPartIndex = index">
-              <a routerLink="meal/ingredient/editIngredient/{{ mealParts.ingredient.id }}">
+          <div *ngIf="meal.mealType === 0">
+            <mat-card *ngFor="let mealParts of meal.mealParts; let mealPartIndex = index">
+              <a (click)="onMealUpdate(meal.mealType, mealPartIndex)">
                 <h4>{{ mealParts.ingredient.name }}</h4>
                 {{ 'Total Amount: ' + mealParts.grams}}
                 <br>
@@ -14,8 +14,8 @@
                       (click)="onDeleteIngredient(mealIndex, mealPartIndex)">
                 <mat-icon>delete</mat-icon>
               </button>
-            </li>
-          </ul>
+            </mat-card>
+          </div>
         </div>
   </mat-card>
     </div>
@@ -23,9 +23,9 @@
       <mat-card ngClass="lunch-box">
         <h2>Lunch</h2>
         <div *ngFor="let meal of meals; let mealIndex = index">
-          <ul *ngIf="meal.mealType === 1">
-            <li *ngFor="let mealParts of meal.mealParts; let mealPartIndex = index">
-              <a routerLink="meal/ingredient/editIngredient/{{ mealParts.ingredient.id }}">
+          <div *ngIf="meal.mealType === 1">
+              <mat-card *ngFor="let mealParts of meal.mealParts; let mealPartIndex = index">
+              <a (click)="onMealUpdate(meal.mealType, mealPartIndex)">
                 <h4>{{ mealParts.ingredient.name }}</h4>
                 {{ 'Total Amount: ' + mealParts.grams}}
                 <br>
@@ -35,8 +35,8 @@
                       (click)="onDeleteIngredient(mealIndex, mealPartIndex)">
                 <mat-icon>delete</mat-icon>
               </button>
-            </li>
-          </ul>
+              </mat-card>
+          </div>
         </div>
       </mat-card>
     </div>
@@ -44,9 +44,9 @@
       <mat-card ngClass="dinner-box">
         <h2>Dinner</h2>
         <div *ngFor="let meal of meals; let mealIndex = index">
-          <ul *ngIf="meal.mealType === 2">
-            <li *ngFor="let mealParts of meal.mealParts; let mealPartIndex = index">
-              <a routerLink="meal/ingredient/editIngredient/{{ mealParts.ingredient.id }}">
+          <div *ngIf="meal.mealType === 2">
+            <mat-card *ngFor="let mealParts of meal.mealParts; let mealPartIndex = index">
+              <a (click)="onMealUpdate(meal.mealType, mealPartIndex)">
                 <h4><mat-icon>restaurant</mat-icon> {{ mealParts.ingredient.name }}</h4>
                 {{ 'Total Amount: ' + mealParts.grams}}
                 <br>
@@ -56,8 +56,8 @@
                       (click)="onDeleteIngredient(mealIndex, mealPartIndex)">
                 <mat-icon>delete</mat-icon>
               </button>
-            </li>
-          </ul>
+            </mat-card>
+          </div>
         </div>
       </mat-card>
     </div>

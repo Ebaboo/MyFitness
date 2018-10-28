@@ -1,3 +1,16 @@
-<p>
-  edit-meal works!
-</p>
+<form [formGroup]="ingredientForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <label for="calories"></label>
+    <input
+        matInput
+        type="text"
+        formControlName="grams"
+        id="calories"
+        placeholder="Fill Ingredient Amount">
+  </mat-form-field>
+  <br>
+    <button mat-flat-button type="submit" class="submit-btn">Save Ingredient
+    </button>
+
+  <button mat-flat-button (click)="onClose()" class="cancel-btn">Cancel</button>
+</form>

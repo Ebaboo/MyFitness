@@ -15,7 +15,22 @@
     margin-bottom: 15px;
     background: rgba(0,0,255,0.3)
 }
+
 a{
+    cursor: pointer;
     color: #000;
 }
 
+a:hover{
+    text-decoration: none;
+}
+
+.mat-card{
+    margin-bottom: 15px;
+}
+
+button{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
