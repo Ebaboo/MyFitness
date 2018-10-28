@@ -3,42 +3,50 @@
     <form (ngSubmit)="onSubmit(f)" #f="ngForm">
       <div class="row">
       <div class="col-md-4 form-group">
-        <label for="ingredientId">Выберите пищу:</label>
-        <select class="form-control"
-            name="ingredientId"
-            id="ingredientId"
-            ngModel>
-          <option *ngFor="let ingredient of ingredients" value="{{ ingredient.id }}">
-            {{ ingredient.name }}, {{ ingredient.calories }}
-          </option>
-        </select>
+          <mat-form-field>
+            <label for="ingredientId">Pick a food:</label>
+            <mat-select
+                name="ingredientId"
+                id="ingredientId"
+                ngModel>
+              <mat-option *ngFor="let ingredient of ingredients" value="{{ ingredient.id }}">
+                {{ ingredient.name }} -  Calories:  {{ ingredient.calories }}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
       </div>
         <div class="col-md-4 form-group">
-        <label for="amount">Количество: </label>
-        <input
-            class="form-control"
-            type="number"
-            id="amount"
-            name="amount"
-            ngModel
-            required>
+          <mat-form-field>
+        <label for="amount">Amount in grams: </label>
+            <input
+                matInput
+                type="number"
+                id="amount"
+                name="amount"
+                ngModel
+                required>
+          </mat-form-field>
       </div>
 
         <div class="col-md-4 form-group">
-          <label for="meal">Вид приема пищи: </label>
-          <select
+          <mat-form-field>
+          <label for="meal">Meal: </label>
+          <mat-select
               id="meal"
               name="whatMeal"
-              [ngModel]="'breakfast'" class="form-control">
-            <option value="breakfast">Breakfast</option>
-            <option value="lunch">Lunch</option>
-            <option value="dinner">Dinner</option>
-          </select>
+              [ngModel]="'breakfast'">
+            <mat-option value="breakfast">Breakfast</mat-option>
+            <mat-option value="lunch">Lunch</mat-option>
+            <mat-option value="dinner">Dinner</mat-option>
+          </mat-select>
+            </mat-form-field>
         </div>
       </div>
         <div class="row">
           <div class="col-md-4">
-          <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Add food</button>
+          <button mat-raised-button
+                  type="submit"
+                  [disabled]="!f.valid"><mat-icon>fastfood</mat-icon> Add meal</button>
           <br><br>
           </div>
         </div>

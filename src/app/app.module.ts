@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatListModule, MatSelectModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { DayComponent } from './day/day.component';
@@ -11,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './header/header.component';
 import { IngredientListComponent } from './day/meal/ingredient/ingredient-list/ingredient-list.component';
 import { SearchIngredientsPipe } from './pipes/search-ingredients.pipe';
+import { EditMealComponent } from './day/meal/edit-meal/edit-meal.component';
 
 @NgModule({
   declarations: [
@@ -21,13 +24,21 @@ import { SearchIngredientsPipe } from './pipes/search-ingredients.pipe';
     EditIngredientComponent,
     HeaderComponent,
     IngredientListComponent,
-    SearchIngredientsPipe
+    SearchIngredientsPipe,
+    EditMealComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule,
+    MatButtonModule,
+    MatListModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

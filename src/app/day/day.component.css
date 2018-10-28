@@ -1,3 +1,10 @@
 h1{
     text-align: center;
 }
+.mat-raised-button{
+    background-color: #337AB7;
+    color:#fff;
+}
+.mat-form-field{
+    width: 100%;
+}

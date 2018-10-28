@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MealModel } from './meal.model';
 import { DayService } from '../day.service';
 import { MealService } from './meal.service';
-import { Moment } from 'moment';
-import * as moment from 'moment';
 @Component({
   selector: 'app-meal',
   templateUrl: './meal.component.html',

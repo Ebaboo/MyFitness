@@ -1,15 +1,15 @@
 import { IngredientModel } from './ingredient/ingredient.model';
 
 export class MealPartModel {
-  public food: IngredientModel;
+  public ingredient: IngredientModel;
   public grams: number;
 
   constructor(food: IngredientModel, grams: number) {
-    this.food = food;
+    this.ingredient = food;
     this.grams = grams;
   }
 
   getCalories(): number {
-    return this.grams * this.food.calories;
+    return this.grams * this.ingredient.calories;
   }
 }

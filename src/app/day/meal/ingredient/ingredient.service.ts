@@ -9,10 +9,10 @@ import { Subject } from 'rxjs';
 export class IngredientService {
   ingredientsChanged = new Subject<IngredientModel[]>();
   ingredients: IngredientModel[] = [
-    new IngredientModel(UUID.UUID(), 'bread', 200),
-    new IngredientModel(UUID.UUID(), 'Steak', 550),
-    new IngredientModel(UUID.UUID(), 'Гречневая каша', 550),
-    new IngredientModel(UUID.UUID(), 'Пузовик', 550),
+    new IngredientModel(UUID.UUID(), 'bread', 5.5),
+    new IngredientModel(UUID.UUID(), 'Steak', 11),
+    new IngredientModel(UUID.UUID(), 'Гречневая каша', 3.5),
+    new IngredientModel(UUID.UUID(), 'Пузовик', 15),
   ];
 
   constructor() {

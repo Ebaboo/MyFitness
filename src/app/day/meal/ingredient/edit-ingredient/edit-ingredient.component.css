@@ -1,0 +1,13 @@
+.mat-form-field{
+    width: 100%;
+}
+.submit-btn.mat-flat-button{
+     background-color: #337AB7;
+     color:#fff;
+ }
+
+.cancel-btn.mat-flat-button{
+    background-color: #FF3333;
+    color:#fff;
+    margin-left: 25px;
+}

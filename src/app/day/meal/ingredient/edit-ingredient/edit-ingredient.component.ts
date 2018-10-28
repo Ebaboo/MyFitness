@@ -36,7 +36,7 @@ export class EditIngredientComponent implements OnInit {
     if (this.editMode) {
       this.ingredientService.updateIngredient(this.id, this.ingredientForm.value);
     } else {
-      this.ingredientService.addIngredient(UUID.UUID(), this.ingredientForm.value);
+        this.ingredientService.addIngredient(UUID.UUID(), this.ingredientForm.value);
     }
   }
 
