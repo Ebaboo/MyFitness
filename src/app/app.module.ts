@@ -22,6 +22,7 @@ import { HeaderComponent } from './header/header.component';
 import { IngredientListComponent } from './day/meal/ingredient/ingredient-list/ingredient-list.component';
 import { SearchIngredientsPipe } from './pipes/search-ingredients.pipe';
 import { EditMealComponent } from './day/meal/edit-meal/edit-meal.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { EditMealComponent } from './day/meal/edit-meal/edit-meal.component';
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     MatInputModule,
     MatSelectModule,
     MatIconModule,

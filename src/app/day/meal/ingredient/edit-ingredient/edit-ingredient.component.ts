@@ -11,7 +11,7 @@ import { UUID } from 'angular2-uuid';
   styleUrls: ['./edit-ingredient.component.css']
 })
 export class EditIngredientComponent implements OnInit {
-  id: UUID;
+  id: string;
   editMode = false;
   ingredientForm: FormGroup;
   ingredient: IngredientModel;
@@ -36,7 +36,7 @@ export class EditIngredientComponent implements OnInit {
     if (this.editMode) {
       this.ingredientService.updateIngredient(this.id, this.ingredientForm.value);
     } else {
-      this.ingredientService.addIngredient(UUID.UUID(), this.ingredientForm.value);
+      this.ingredientService.addIngredient('', this.ingredientForm.value);
       this.ingredientForm.reset();
     }
 

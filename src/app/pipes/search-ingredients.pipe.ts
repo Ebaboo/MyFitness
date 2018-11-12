@@ -7,10 +7,11 @@ import { IngredientModel } from '../day/meal/ingredient/ingredient.model';
 })
 export class SearchIngredientsPipe implements PipeTransform {
   transform(ingredients: IngredientModel[], value: string) {
-    return ingredients.filter(
-      (ingredient: IngredientModel) => {
-        return ingredient.name.toLowerCase().includes(value.toLowerCase());
-      }
-    );
+    if (!ingredients || !ingredients.length) {
+      return [];
+    }
+    return ingredients.filter((ingredient: IngredientModel) => {
+      return ingredient.name.toLowerCase().includes(value.toLowerCase());
+    });
   }
 }

@@ -7,30 +7,37 @@ import { IngredientModel } from './meal/ingredient/ingredient.model';
 import { DayModel } from './day.model';
 import { MealTypeModel } from './meal/meal-type.model';
 import { IngredientService } from './meal/ingredient/ingredient.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-current-day',
   templateUrl: './day.component.html',
   styleUrls: ['./day.component.css']
 })
-export class DayComponent implements OnInit {
+export class DayComponent implements OnInit, OnDestroy {
   @ViewChild('f') foodForm: NgForm;
   day: DayModel;
+  subscription: Subscription;
   ingredients: IngredientModel[] = [];
 
   constructor(private dayService: DayService,
               private mealService: MealService,
-              private ingredientsService: IngredientService) {
+              private ingredientService: IngredientService) {
   }
 
   ngOnInit() {
     this.day = this.dayService.getDay();
-    this.ingredients = this.ingredientsService.getIngredients();
+    this.ingredients = this.ingredientService.getIngredients();
+    this.subscription =  this.ingredientService.ingredientsChanged.subscribe(
+      (ingredients: IngredientModel[]) => {
+        this.ingredients = ingredients;
+      }
+    );
   }
 
   onSubmit() {
     const formData = this.foodForm.value;
-    const ingredient = this.ingredientsService.getIngredientById(formData.ingredientId);
+    const ingredient = this.ingredientService.getIngredientById(formData.ingredientId);
     switch (formData.whatMeal) {
       case 'breakfast':
         this.mealService.addMealPartToMeal(
@@ -57,5 +64,9 @@ export class DayComponent implements OnInit {
           ));
         break;
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

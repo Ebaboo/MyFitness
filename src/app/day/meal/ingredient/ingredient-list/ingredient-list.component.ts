@@ -15,12 +15,12 @@ export class IngredientListComponent implements OnInit, OnDestroy {
   constructor(private ingredientService: IngredientService) { }
 
   ngOnInit() {
+    this.ingredientService.getIngredients();
     this.subscription =  this.ingredientService.ingredientsChanged.subscribe(
       (ingredients: IngredientModel[]) => {
         this.ingredients = ingredients;
       }
     );
-    this.ingredients = this.ingredientService.getIngredients();
   }
 
   ngOnDestroy() {
