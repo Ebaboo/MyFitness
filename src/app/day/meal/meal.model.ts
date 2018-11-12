@@ -3,14 +3,14 @@ import { MealTypeModel } from './meal-type.model';
 import { UUID } from 'angular2-uuid';
 
 export class MealModel {
-  public id: UUID;
   public mealParts: MealPartModel[];
   public mealType: MealTypeModel;
+  private date: Date;
 
-  constructor(id: UUID, mealParts: MealPartModel[], mealType: MealTypeModel) {
-    this.id = id;
+  constructor(mealParts: MealPartModel[], mealType: MealTypeModel) {
     this.mealParts = mealParts;
     this.mealType = mealType;
+    this.date = new Date();
   }
 }
 

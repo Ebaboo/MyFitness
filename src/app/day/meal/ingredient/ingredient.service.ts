@@ -20,7 +20,7 @@ export class IngredientService {
 
 
   getIngredients() {
-    return this.ingredients.slice();
+    return [...this.ingredients].slice();
   }
 
   getIngredientById(id: UUID) {

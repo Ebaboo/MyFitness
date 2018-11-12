@@ -1,18 +1,20 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { MealModel } from './meal.model';
 import { DayService } from '../day.service';
 import { MealService } from './meal.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { EditMealComponent } from './edit-meal/edit-meal.component';
 import { MealTypeModel } from './meal-type.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-meal',
   templateUrl: './meal.component.html',
   styleUrls: ['./meal.component.css']
 })
-export class MealComponent implements OnInit {
+export class MealComponent implements OnInit, OnDestroy {
   meals: MealModel[] = [];
+  subscription: Subscription;
 
 
   constructor(private dayService: DayService,
@@ -21,17 +23,11 @@ export class MealComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.mealService.mealsChanged.subscribe(
+    this.subscription = this.mealService.mealsChanged.subscribe(
       (meals: MealModel[]) => {
         this.meals = meals;
-        /*this.meals.sort(
-          (a, b) => a.mealType < b.mealType ? -1 : a.mealType > b.mealType ? 1 : 0
-        );*/
       }
     );
-    /*this.meals.sort(
-      (a, b) => a.mealType < b.mealType ? -1 : a.mealType > b.mealType ? 1 : 0
-    );*/
     this.meals = this.mealService.getMealsForDay();
 
   }
@@ -48,8 +44,11 @@ export class MealComponent implements OnInit {
         mealIndex: mealIndex,
         data: editingMeal[0].mealParts[0]
       }});
+  }
 
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 

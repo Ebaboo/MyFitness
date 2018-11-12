@@ -26,8 +26,10 @@ export class EditMealComponent implements OnInit {
   onSubmit() {
     const mealIndex = this.data.mealIndex;
     const mealType = this.data.mealType;
-    this.mealService.updateIngredientInMeal(mealType, mealIndex, this.ingredientForm.value.grams);
+    this.mealService.updateIngredientInMeal(mealType, mealIndex,
+      this.ingredientForm.value.grams);
     this.onClose();
+
   }
 
   onClose() {

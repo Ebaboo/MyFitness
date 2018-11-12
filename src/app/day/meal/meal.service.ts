@@ -5,6 +5,7 @@ import { MealTypeModel } from './meal-type.model';
 import { MealPartModel } from './meal-part.model';
 import { IngredientModel } from './ingredient/ingredient.model';
 import { UUID } from 'angular2-uuid';
+import { splitDepsDsl } from '@angular/core/src/view/util';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ import { UUID } from 'angular2-uuid';
 
 export class MealService implements OnInit {
   meals: MealModel[] = [
-    new MealModel(UUID.UUID(),
+    new MealModel(
       [new MealPartModel(new IngredientModel(
         UUID.UUID(), 'Ribs', 200
         ), 50
@@ -29,6 +30,7 @@ export class MealService implements OnInit {
   }
 
   getMealsForDay(): MealModel[] {
+    console.log(this.meals);
     return this.meals.slice();
   }
 
@@ -48,7 +50,7 @@ export class MealService implements OnInit {
     );
     if (!hasMealParts) {
       this.meals.push(new MealModel(
-        UUID.UUID(), [mealPart],
+        [mealPart],
         mealType));
     }
     this.mealsChanged.next(this.meals.slice());
@@ -82,5 +84,4 @@ export class MealService implements OnInit {
     );
     this.mealsChanged.next(this.meals.slice());
   }
-
 }
