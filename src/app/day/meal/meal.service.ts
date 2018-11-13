@@ -30,7 +30,6 @@ export class MealService implements OnInit {
   }
 
   getMealsForDay(): MealModel[] {
-    console.log(this.meals);
     return this.meals.slice();
   }
 

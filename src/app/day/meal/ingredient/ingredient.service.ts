@@ -37,7 +37,7 @@ export class IngredientService {
   }
 
   getIngredientById(id: string) {
-    return this.ingredients.find(ingredientId => ingredientId.id === id);
+    return this.http.get<{_id: string, name: string, calories: number}>('http://localhost:3000/api/ingredients/' + id);
   }
 
   updateIngredient(id: string, ingredientData) {

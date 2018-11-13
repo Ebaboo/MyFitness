@@ -37,33 +37,41 @@ export class DayComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     const formData = this.foodForm.value;
-    const ingredient = this.ingredientService.getIngredientById(formData.ingredientId);
-    switch (formData.whatMeal) {
-      case 'breakfast':
-        this.mealService.addMealPartToMeal(
-          MealTypeModel.Breakfast,
-          new MealPartModel(
-            ingredient,
-            formData.amount
-          ));
-        break;
-      case 'lunch':
-        this.mealService.addMealPartToMeal(
-          MealTypeModel.Lunch,
-          new MealPartModel(
-            ingredient,
-            formData.amount
-          ));
-        break;
-      case 'dinner':
-        this.mealService.addMealPartToMeal(
-          MealTypeModel.Dinner,
-          new MealPartModel(
-            ingredient,
-            formData.amount
-          ));
-        break;
-    }
+    this.ingredientService.getIngredientById(formData.ingredientId)
+    .subscribe(ingredientData => {
+      const ingredient = {
+        id: ingredientData._id,
+        name: ingredientData.name,
+        calories: ingredientData.calories
+      };
+      switch (formData.whatMeal) {
+        case 'breakfast':
+          this.mealService.addMealPartToMeal(
+            MealTypeModel.Breakfast,
+            new MealPartModel(
+              ingredient,
+              formData.amount
+            ));
+          break;
+        case 'lunch':
+          this.mealService.addMealPartToMeal(
+            MealTypeModel.Lunch,
+            new MealPartModel(
+              ingredient,
+              formData.amount
+            ));
+          break;
+        case 'dinner':
+          this.mealService.addMealPartToMeal(
+            MealTypeModel.Dinner,
+            new MealPartModel(
+              ingredient,
+              formData.amount
+            ));
+          break;
+      }
+    });
+
   }
 
   ngOnDestroy() {

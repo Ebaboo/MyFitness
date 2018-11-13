@@ -2,6 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+const ingredientsRoute = require('./routes/ingredients')
+
+const app = express();
+
 mongoose
   .connect(
     'mongodb://localhost/MyFitness',
@@ -14,12 +18,11 @@ mongoose
     console.log(e);
   });
 
-const Ingredient = require('./models/ingredient');
-
-const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -34,43 +37,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/api/ingredients', (req, res, next) => {
-  const ingredients = {};
-  Ingredient.find().then(documents => {
-    res.status(200).json({
-      message: 'Ingredients Fetched Successfully',
-      ingredients: documents
-    });
-  });
-});
-
-app.post('/api/ingredients', (req, res, next) => {
-  const ingredient = new Ingredient({
-    name: req.body.name,
-    calories: req.body.calories
-  });
-  console.log(ingredient);
-  ingredient.save().then(createdIngredient => {
-    res.status(201).json({
-      message: 'Ingredient added',
-      ingredientId: createdIngredient._id
-    });
-  });
-});
-
-app.put('/api/ingredients/:id', (req, res, next) => {
-  const ingredient = new Ingredient({
-    _id: req.params.id,
-    name: req.body.ingredientName,
-    calories: req.body.ingredientCalories
-  });
-  console.log(req.body);
-  Ingredient.updateOne({ _id: req.params.id }, ingredient).then(result => {
-
-    res.status(200).json({
-      message: 'Updated Successfully'
-    });
-  });
-});
+app.use(ingredientsRoute);
 
 module.exports = app;

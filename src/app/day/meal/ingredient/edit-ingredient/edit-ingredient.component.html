@@ -1,4 +1,4 @@
-<h3 *ngIf="editMode; else elseBlock">Edit Ingredient: {{ ingredient.name }}</h3>
+<h3 *ngIf="editMode; else elseBlock">Edit Ingredient: {{ ingredient?.name }}</h3>
 <ng-template #elseBlock><h3>Create Ingredient</h3></ng-template>
 
 <hr>

@@ -16,46 +16,51 @@ export class EditIngredientComponent implements OnInit {
   ingredientForm: FormGroup;
   ingredient: IngredientModel;
 
-  constructor(private route: ActivatedRoute,
-              private ingredientService: IngredientService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private ingredientService: IngredientService
+  ) {}
 
   ngOnInit() {
-    this.route.params.subscribe(
-      (params: Params) => {
+    this.ingredientForm = new FormGroup({
+      ingredientName: new FormControl(null, Validators.required),
+      ingredientCalories: new FormControl(null, Validators.required)
+    });
+    this.route.params.subscribe((params: Params) => {
+      if (params['id']) {
         this.id = params['id'];
         this.editMode = params['id'] != null;
-        this.initForm();
-        window.scroll(0, 0);
+        this.ingredientService
+          .getIngredientById(this.id)
+          .subscribe(ingredientData => {
+            this.ingredient = {
+              id: ingredientData._id,
+              name: ingredientData.name,
+              calories: ingredientData.calories
+            };
+            if (this.editMode) {
+              this.ingredientForm.setValue({
+                ingredientName: this.ingredient.name,
+                ingredientCalories: this.ingredient.calories
+              });
+            } else {
+              this.editMode = null;
+            }
+          });
       }
-    );
+      window.scroll(0, 0);
+    });
   }
-
 
   onSubmit() {
     if (this.editMode) {
-      this.ingredientService.updateIngredient(this.id, this.ingredientForm.value);
+      this.ingredientService.updateIngredient(
+        this.id,
+        this.ingredientForm.value
+      );
     } else {
       this.ingredientService.addIngredient('', this.ingredientForm.value);
       this.ingredientForm.reset();
     }
-
   }
-
-  private initForm() {
-    let ingredientName = '';
-    let ingredientCalories = null;
-    if (this.editMode) {
-      this.ingredient = this.ingredientService.getIngredientById(this.id);
-      ingredientName = this.ingredient.name;
-      ingredientCalories = this.ingredient.calories;
-    }
-    this.ingredientForm = new FormGroup({
-      'ingredientName': new FormControl(ingredientName, Validators.required),
-      'ingredientCalories': new FormControl(ingredientCalories, Validators.required)
-
-    });
-  }
-
-
 }
