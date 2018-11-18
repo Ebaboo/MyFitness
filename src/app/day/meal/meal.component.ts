@@ -26,25 +26,25 @@ export class MealComponent implements OnInit, OnDestroy {
     this.subscription = this.mealService.mealsChanged.subscribe(
       (meals: MealModel[]) => {
         this.meals = meals;
+        console.log(this.meals);
       }
     );
-    this.meals = this.mealService.getMealsForDay();
-
+    this.mealService.getMealsForDay('18-11-2018', '18-11-2018');
   }
 
   onDeleteIngredient(mealIndex, mealPartIndex) {
     this.mealService.DeleteIngredient(mealIndex, mealPartIndex);
   }
 
-  onMealUpdate(mealType: MealTypeModel, mealIndex: number) {
-    const editingMeal = this.mealService.getMealByTypeAndIndex(mealType, mealIndex);
-    this.dialog.open(EditMealComponent, {
-      data: {
-        mealType: mealType,
-        mealIndex: mealIndex,
-        data: editingMeal[0].mealParts[0]
-      }});
-  }
+  // onMealUpdate(mealType: MealTypeModel, mealIndex: number) {
+  //   const editingMeal = this.mealService.getMealByTypeAndIndex(mealType, mealIndex);
+  //   this.dialog.open(EditMealComponent, {
+  //     data: {
+  //       mealType: mealType,
+  //       mealIndex: mealIndex,
+  //       data: editingMeal[0].mealParts[0]
+  //     }});
+  // }
 
 
   ngOnDestroy() {

@@ -70,8 +70,8 @@ export class IngredientService {
       .subscribe(responseData => {
         const ingredientId = responseData.ingredientId;
         ingredient.id = ingredientId;
+        this.ingredients.push(ingredient);
+        this.ingredientsChanged.next(this.ingredients);
       });
-    this.ingredients.push(ingredient);
-    this.ingredientsChanged.next(this.ingredients);
   }
 }

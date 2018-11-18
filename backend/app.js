@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const ingredientsRoute = require('./routes/ingredients')
+const mealsRoute = require('./routes/meals')
 
 const app = express();
 
@@ -38,5 +39,6 @@ app.use((req, res, next) => {
 });
 
 app.use(ingredientsRoute);
+app.use(mealsRoute);
 
 module.exports = app;
