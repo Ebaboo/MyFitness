@@ -12,12 +12,10 @@ import { MealService } from './meal/meal.service';
 import { MealPartModel } from './meal/meal-part.model';
 import { IngredientModel } from './meal/ingredient/ingredient.model';
 import { DayModel } from './day.model';
-import { MealTypeModel } from './meal/meal-type.model';
 import { IngredientService } from './meal/ingredient/ingredient.service';
 import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { MealModel } from './meal/meal.model';
-import { isEmpty } from 'rxjs/operators';
 
 @Component({
   selector: 'app-current-day',
@@ -94,8 +92,8 @@ export class DayComponent implements OnInit, OnDestroy {
             calories: ingredientData.calories
           };
           this.mealService.addMealPartToMeal(
-            mealType,
-            new MealPartModel(ingredient, formData.amount),
+            ingredient.id,
+            formData.amount,
             mealId
           );
         });

@@ -3,7 +3,6 @@ const Ingredient = require('../models/ingredient');
 const router = express.Router();
 
 router.get('/api/ingredients', (req, res, next) => {
-  const ingredients = {};
   Ingredient.find().then(documents => {
     res.status(200).json({
       message: 'Ingredients Fetched Successfully',
@@ -17,7 +16,6 @@ router.post('/api/ingredients', (req, res, next) => {
     name: req.body.name,
     calories: req.body.calories
   });
-  console.log(ingredient);
   ingredient.save().then(createdIngredient => {
     res.status(201).json({
       message: 'Ingredient added',
@@ -29,10 +27,8 @@ router.post('/api/ingredients', (req, res, next) => {
 router.get('/api/ingredients/:id', (req, res, next) => {
   Ingredient.findById(req.params.id).then(ingredient => {
     if (ingredient) {
-      console.log(ingredient)
       res.status(200).json(ingredient);
     } else {
-      console.log('huy')
       res.status(404).json({message: 'Ingredient not found'})
     }
   });
@@ -44,10 +40,10 @@ router.put('/api/ingredients/:id', (req, res, next) => {
     name: req.body.ingredientName,
     calories: req.body.ingredientCalories
   });
-  console.log(req.body);
-  Ingredient.updateOne({ _id: req.params.id }, ingredient).then(result => {
+  Ingredient.findOneAndUpdate({ _id: req.params.id }, ingredient, {new: true}).then(result => {
     res.status(200).json({
-      message: 'Updated Successfully'
+      message: 'Updated Successfully',
+      ingredient: result
     });
   });
 });

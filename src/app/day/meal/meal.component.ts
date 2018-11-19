@@ -1,11 +1,11 @@
-import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
-import { MealModel } from './meal.model';
-import { DayService } from '../day.service';
-import { MealService } from './meal.service';
-import { MatDialog, MatDialogConfig } from '@angular/material';
-import { EditMealComponent } from './edit-meal/edit-meal.component';
-import { MealTypeModel } from './meal-type.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { Subscription } from 'rxjs';
+import { DayService } from '../day.service';
+import { MealModel } from './meal.model';
+import { MealService } from './meal.service';
+import { MealTypeModel } from './meal-type.model';
+import { EditMealComponent } from './edit-meal/edit-meal.component';
 
 @Component({
   selector: 'app-meal',
@@ -26,26 +26,23 @@ export class MealComponent implements OnInit, OnDestroy {
     this.subscription = this.mealService.mealsChanged.subscribe(
       (meals: MealModel[]) => {
         this.meals = meals;
-        console.log(this.meals);
       }
     );
-    this.mealService.getMealsForDay('18-11-2018', '18-11-2018');
+    this.mealService.getMealsForDay('19-11-2018', '19-11-2018');
   }
 
-  onDeleteIngredient(mealIndex, mealPartIndex) {
-    this.mealService.DeleteIngredient(mealIndex, mealPartIndex);
+  onDeleteIngredient(mealId: string, mealpartId: string) {
+    this.mealService.DeleteIngredient(mealId, mealpartId);
   }
 
-  // onMealUpdate(mealType: MealTypeModel, mealIndex: number) {
-  //   const editingMeal = this.mealService.getMealByTypeAndIndex(mealType, mealIndex);
-  //   this.dialog.open(EditMealComponent, {
-  //     data: {
-  //       mealType: mealType,
-  //       mealIndex: mealIndex,
-  //       data: editingMeal[0].mealParts[0]
-  //     }});
-  // }
-
+  onMealUpdate(mealId: string, mealPartId: string, amount: number) {
+    this.dialog.open(EditMealComponent, {
+      data: {
+        mealId: mealId,
+        mealPartId: mealPartId,
+        amount: amount
+      }});
+  }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();

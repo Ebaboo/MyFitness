@@ -18,19 +18,19 @@ export class IngredientService {
       .get<{ message: string; ingredients: any }>(
         'http://localhost:3000/api/ingredients'
       )
-      .pipe(
-        map(ingredientsData => {
-          return ingredientsData.ingredients.map(ingredient => {
-            return {
-              id: ingredient._id,
-              name: ingredient.name,
-              calories: ingredient.calories
-            };
-          });
-        })
-      )
+      // .pipe(
+      //   map(ingredientsData => {
+      //     return ingredientsData.ingredients.map(ingredient => {
+      //       return {
+      //         id: ingredient._id,
+      //         name: ingredient.name,
+      //         calories: ingredient.calories
+      //       };
+      //     });
+      //   })
+      // )
       .subscribe(mapedIngredients => {
-        this.ingredients = mapedIngredients;
+        this.ingredients = mapedIngredients.ingredients;
         this.ingredientsChanged.next([...this.ingredients]);
       });
     return [...this.ingredients].slice();
@@ -42,12 +42,12 @@ export class IngredientService {
 
   updateIngredient(id: string, ingredientData) {
     this.http
-      .put('http://localhost:3000/api/ingredients/' + id, ingredientData)
+      .put<{message: string, ingredient: any}>('http://localhost:3000/api/ingredients/' + id, ingredientData)
       .subscribe(response => {
         this.ingredients.map(ingredient => {
-          if (ingredient.id === id) {
-            ingredient.name = ingredientData.ingredientName;
-            ingredient.calories = ingredientData.ingredientCalories;
+          if (ingredient._id === response.ingredient._id) {
+            ingredient.name = response.ingredient.name;
+            ingredient.calories = response.ingredient.calories;
             return;
           }
         });
@@ -69,7 +69,7 @@ export class IngredientService {
       )
       .subscribe(responseData => {
         const ingredientId = responseData.ingredientId;
-        ingredient.id = ingredientId;
+        ingredient._id = ingredientId;
         this.ingredients.push(ingredient);
         this.ingredientsChanged.next(this.ingredients);
       });

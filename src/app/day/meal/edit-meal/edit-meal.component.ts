@@ -11,31 +11,28 @@ import { MealService } from '../meal.service';
 export class EditMealComponent implements OnInit {
   ingredientForm: FormGroup;
 
-
-  constructor(private dialogRef: MatDialogRef<EditMealComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,
-              private mealService: MealService ) {
-  }
+  constructor(
+    private dialogRef: MatDialogRef<EditMealComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private mealService: MealService
+  ) {}
 
   ngOnInit() {
     this.ingredientForm = new FormGroup({
-      'grams': new FormControl(this.data.data.grams)
+      grams: new FormControl(this.data.amount)
     });
   }
 
   onSubmit() {
-    const mealIndex = this.data.mealIndex;
-    const mealType = this.data.mealType;
-    this.mealService.updateIngredientInMeal(mealType, mealIndex,
-      this.ingredientForm.value.grams);
+    const mealId = this.data.mealId;
+    const mealPartId = this.data.mealPartId;
+    const amount = this.data.amount;
+    console.log(mealPartId);
+    this.mealService.updateIngredientInMeal(mealId, mealPartId, amount);
     this.onClose();
-
   }
 
   onClose() {
-     this.dialogRef.close();
+    this.dialogRef.close();
   }
-
-
-
 }

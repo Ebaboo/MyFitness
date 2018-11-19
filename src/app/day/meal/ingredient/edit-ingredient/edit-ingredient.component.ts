@@ -11,7 +11,7 @@ import { UUID } from 'angular2-uuid';
   styleUrls: ['./edit-ingredient.component.css']
 })
 export class EditIngredientComponent implements OnInit {
-  id: string;
+  _id: string;
   editMode = false;
   ingredientForm: FormGroup;
   ingredient: IngredientModel;
@@ -28,13 +28,13 @@ export class EditIngredientComponent implements OnInit {
     });
     this.route.params.subscribe((params: Params) => {
       if (params['id']) {
-        this.id = params['id'];
+        this._id = params['id'];
         this.editMode = params['id'] != null;
         this.ingredientService
-          .getIngredientById(this.id)
+          .getIngredientById(this._id)
           .subscribe(ingredientData => {
             this.ingredient = {
-              id: ingredientData._id,
+              _id: ingredientData._id,
               name: ingredientData.name,
               calories: ingredientData.calories
             };
@@ -55,7 +55,7 @@ export class EditIngredientComponent implements OnInit {
   onSubmit() {
     if (this.editMode) {
       this.ingredientService.updateIngredient(
-        this.id,
+        this._id,
         this.ingredientForm.value
       );
     } else {

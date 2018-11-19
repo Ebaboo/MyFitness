@@ -10,7 +10,7 @@
                 name="ingredientId"
                 id="ingredientId"
                 ngModel>
-              <mat-option *ngFor="let ingredient of ingredients" value="{{ ingredient.id }}">
+              <mat-option *ngFor="let ingredient of ingredients" value="{{ ingredient._id }}">
                 {{ ingredient.name }} -  Calories:  {{ ingredient.calories }}
               </mat-option>
             </mat-select>
