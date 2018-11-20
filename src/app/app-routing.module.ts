@@ -4,6 +4,7 @@ import { DayComponent } from './day/day.component';
 import { EditIngredientComponent } from './day/meal/ingredient/edit-ingredient/edit-ingredient.component';
 import { IngredientComponent } from './day/meal/ingredient/ingredient.component';
 import { EditMealComponent } from './day/meal/edit-meal/edit-meal.component';
+import { LoginComponent } from './auth/login/login.component';
 
 const appRoutes: Routes = [
   {path: '', component: DayComponent},
@@ -15,6 +16,8 @@ const appRoutes: Routes = [
       {path: 'ingredient/new', component: EditIngredientComponent}
     ]
   },
+  {path: 'login', component: LoginComponent},
+
 ];
 
 @NgModule({

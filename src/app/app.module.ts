@@ -23,6 +23,7 @@ import { IngredientListComponent } from './day/meal/ingredient/ingredient-list/i
 import { SearchIngredientsPipe } from './pipes/search-ingredients.pipe';
 import { EditMealComponent } from './day/meal/edit-meal/edit-meal.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -34,13 +35,14 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     IngredientListComponent,
     SearchIngredientsPipe,
-    EditMealComponent
+    EditMealComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule,
     ReactiveFormsModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MatInputModule,

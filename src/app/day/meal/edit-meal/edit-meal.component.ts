@@ -26,8 +26,7 @@ export class EditMealComponent implements OnInit {
   onSubmit() {
     const mealId = this.data.mealId;
     const mealPartId = this.data.mealPartId;
-    const amount = this.data.amount;
-    console.log(mealPartId);
+    const amount = this.ingredientForm.value.grams;
     this.mealService.updateIngredientInMeal(mealId, mealPartId, amount);
     this.onClose();
   }

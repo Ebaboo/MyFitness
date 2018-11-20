@@ -59,6 +59,7 @@ export class MealService implements OnInit {
         mealPartData
       )
       .subscribe(response => {
+        console.log(response.meal);
         this.meals.map(meal => {
           if (meal.id === response.meal.id) {
             meal.mealParts = response.meal.mealParts;
@@ -95,11 +96,19 @@ export class MealService implements OnInit {
       mealPartId: mealPartId,
       amount: amount
     };
-    console.log(mealData);
     this.http
-      .patch(
-        'http://localhost:3000/api/meals-update', mealData
+      .patch<{ message: string; meal: MealModel }>(
+        'http://localhost:3000/api/meals-update',
+        mealData
       )
-      .subscribe();
+      .subscribe(response => {
+        console.log(response.meal);
+        this.meals.map(meal => {
+          if (meal.id === response.meal.id) {
+            return meal.mealParts = response.meal.mealParts;
+          }
+        });
+        this.mealsChanged.next(this.meals);
+      });
   }
 }

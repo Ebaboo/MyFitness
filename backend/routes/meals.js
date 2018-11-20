@@ -69,11 +69,25 @@ router.patch('/api/meals-update', (req, res, next) => {
   const mealPartId = req.body.mealPartId;
   const amount = req.body.amount;
   MealUpdated.updateOne(
-    { _id: mealId, 'mealParts.ingredient': mealPartId },
+    { _id: mealId, 'mealParts._id': mealPartId },
     { $set: { 'mealParts.$.grams': amount } },
     { new: true }
   ).then(meal => {
-    console.log(meal);
+    MealUpdated.findOne({ _id: mealId })
+      .populate('mealParts.ingredient')
+      .then(x => {
+        const updatedIdInMeal = {
+            id: x._id,
+            mealType: x.mealType,
+            mealParts: x.mealParts,
+            date: x.date
+          };
+          console.log(updatedIdInMeal);
+          res.status(201).json({
+            message: 'Mal Updated',
+            meal: updatedIdInMeal
+          });
+        });
   });
 });
 
@@ -100,6 +114,7 @@ router.patch('/api/meals/:mealId', (req, res, next) => {
         mealParts: meal.mealParts,
         date: meal.date
       };
+      console.log(updatedIdInMeal);
       res.status(201).json({
         message: 'Mal Updated',
         meal: updatedIdInMeal
