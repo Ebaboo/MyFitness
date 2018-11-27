@@ -1,10 +1,11 @@
 const express = require('express');
 const MealUpdated = require('../models/meal-updated');
 const router = express.Router();
+const checkAuth = require('../middleware/check-auth')
 
 var moment = require('moment');
 
-router.get('/api/meals', (req, res, next) => {
+router.get('/api/meals', checkAuth, (req, res, next) => {
   const gt = req.query.gt;
   const lt = req.query.lt;
   MealUpdated.find({
@@ -18,10 +19,12 @@ router.get('/api/meals', (req, res, next) => {
         .add(2, 'hours')
         .utc()
         .endOf('day')
-        .toISOString()
-    }
+        .toISOString(),
+    },
+    user: req.userData.userId
   })
     .populate('mealParts.ingredient')
+    .populate('user')
     .then(meals => {
       const updatedIdInMeals = meals.map(meal => {
         return {
@@ -37,19 +40,21 @@ router.get('/api/meals', (req, res, next) => {
     });
 });
 
-router.post('/api/meals', (req, res, next) => {
+router.post('/api/meals', checkAuth, (req, res, next) => {
   let meal = {
     mealParts: [{ ingredient: req.body.ingredientId, grams: req.body.amount }],
     mealType: req.body.mealType,
     date: moment()
       .add(2, 'hours')
       .utc()
-      .toISOString()
+      .toISOString(),
+      user: req.userData.userId
   };
   meal = new MealUpdated(meal);
   meal.save();
   meal
     .populate('mealParts.ingredient')
+    .populate('user')
     .execPopulate()
     .then(meal => {
       meal = {
@@ -64,7 +69,7 @@ router.post('/api/meals', (req, res, next) => {
     });
 });
 
-router.patch('/api/meals-update', (req, res, next) => {
+router.patch('/api/meals-update', checkAuth, (req, res, next) => {
   const mealId = req.body.mealId;
   const mealPartId = req.body.mealPartId;
   const amount = req.body.amount;
@@ -75,14 +80,14 @@ router.patch('/api/meals-update', (req, res, next) => {
   ).then(meal => {
     MealUpdated.findOne({ _id: mealId })
       .populate('mealParts.ingredient')
-      .then(x => {
+      .populate('user')
+      .then(insideMeal => {
         const updatedIdInMeal = {
-            id: x._id,
-            mealType: x.mealType,
-            mealParts: x.mealParts,
-            date: x.date
+            id: insideMeal._id,
+            mealType: insideMeal.mealType,
+            mealParts: insideMeal.mealParts,
+            date: insideMeal.date
           };
-          console.log(updatedIdInMeal);
           res.status(201).json({
             message: 'Mal Updated',
             meal: updatedIdInMeal
@@ -91,7 +96,7 @@ router.patch('/api/meals-update', (req, res, next) => {
   });
 });
 
-router.patch('/api/meals/:mealId', (req, res, next) => {
+router.patch('/api/meals/:mealId', checkAuth, (req, res, next) => {
   MealUpdated.findOneAndUpdate(
     {
       _id: req.params.mealId
@@ -107,6 +112,7 @@ router.patch('/api/meals/:mealId', (req, res, next) => {
     { new: true }
   )
     .populate('mealParts.ingredient')
+    .populate('user')
     .then(meal => {
       const updatedIdInMeal = {
         id: meal._id,
@@ -114,7 +120,6 @@ router.patch('/api/meals/:mealId', (req, res, next) => {
         mealParts: meal.mealParts,
         date: meal.date
       };
-      console.log(updatedIdInMeal);
       res.status(201).json({
         message: 'Mal Updated',
         meal: updatedIdInMeal
@@ -122,15 +127,15 @@ router.patch('/api/meals/:mealId', (req, res, next) => {
     });
 });
 
-router.delete('/api/meals/', (req, res, next) => {
+router.delete('/api/meals/', checkAuth, (req, res, next) => {
   MealUpdated.findByIdAndUpdate(
     { _id: req.query.mealId },
     { $pull: { mealParts: { _id: req.query.mealPartId } } },
     { new: true }
   )
     .populate('mealParts.ingredient')
+    .populate('user')
     .then(updatedMeals => {
-      console.log(updatedMeals);
       res.status(201).json({
         message: 'Meal Deleted',
         meals: updatedMeals

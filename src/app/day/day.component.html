@@ -1,6 +1,8 @@
-<h1>{{ day.date | date: 'dd/MM/yy' }}</h1>
-<br>
 <div class="container">
+  {{week}}
+   <h1>{{ nickname }}</h1>
+    <h4>Today: {{ day.date | date: 'dd/MM/yy' }}</h4>
+    <br>
     <form (ngSubmit)="onSubmit(f)" #f="ngForm">
       <div class="row">
       <div class="col-md-4 form-group">

@@ -16,11 +16,16 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <button mat-button routerLink="" [routerLinkActiveOptions]="{ exact: true
-        }" routerLinkActive="mat-accent">Main</button>
+        }" routerLinkActive="mat-accent">Meals</button>
       <button mat-button routerLink="/ingredient-list"
         routerLinkActive="mat-accent">Ingredients List</button>
       <span class="fill-space"></span>
-      <button style="float: right;" mat-button routerLink="/login" routerLinkActive="mat-accent">Login</button>
+      <button *ngIf="!userIsAuthenticated" style="float: right;" mat-button
+        routerLink="/login" routerLinkActive="mat-accent">Login</button>
+      <button *ngIf="!userIsAuthenticated" style="float: right;" mat-button
+        routerLink="/signup" routerLinkActive="mat-accent">Signup</button>
+      <button *ngIf="userIsAuthenticated" style="float: right;" mat-button
+        (click)="onLogout()">Logout</button>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

@@ -3,63 +3,90 @@
     <h2><mat-icon>local_cafe</mat-icon> Breakfast</h2>
     <div *ngFor="let meal of meals; let mealIndex= index">
       <div *ngIf="meal.mealType === 0">
-        <mat-card *ngFor="let mealPart of meal.mealParts">
+        <mat-accordion *ngFor="let mealPart of meal.mealParts">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h4>{{ mealPart.ingredient.name }}</h4>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <button mat-icon-button
+              (click)="onDeleteIngredient(meal.id, mealPart._id)">
+              <mat-icon>delete</mat-icon>
+            </button>
             <a (click)="onMealUpdate(meal.id, mealPart._id, mealPart.grams)">
-            <h4>{{ mealPart.ingredient.name }}</h4>
-            {{ 'Total Amount: ' + mealPart.grams}}
-            <br>
-            {{ 'Total Calories: ' + mealPart.ingredient.calories *
-            mealPart.grams }}
-          </a>
-          <button mat-icon-button
-            (click)="onDeleteIngredient(meal.id, mealPart._id)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </mat-card>
+              <div>
+                {{ 'Total Amount: ' + mealPart.grams}}
+                <br>
+                {{ 'Total Calories: ' + mealPart.ingredient.calories *
+                mealPart.grams }}
+              </div>
+            </a>
+          </mat-expansion-panel>
+        </mat-accordion>
       </div>
     </div>
   </mat-card>
 </div>
+
+
 <div class="col-md-4">
   <mat-card ngClass="lunch-box">
     <h2><mat-icon>fastfood</mat-icon> Lunch</h2>
     <div *ngFor="let meal of meals; let mealIndex= index">
       <div *ngIf="meal.mealType === 1">
-        <mat-card *ngFor="let mealPart of meal.mealParts">
+        <mat-accordion *ngFor="let mealPart of meal.mealParts">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h4>{{ mealPart.ingredient.name }}</h4>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <button mat-icon-button
+              (click)="onDeleteIngredient(meal.id, mealPart._id)">
+              <mat-icon>delete</mat-icon>
+            </button>
             <a (click)="onMealUpdate(meal.id, mealPart._id, mealPart.grams)">
-            <h4>{{ mealPart.ingredient.name }}</h4>
-            {{ 'Total Amount: ' + mealPart.grams}}
-            <br>
-            {{ 'Total Calories: ' + mealPart.ingredient.calories *
-            mealPart.grams }}
-          </a>
-          <button mat-icon-button
-            (click)="onDeleteIngredient(meal.id, mealPart._id)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </mat-card>
+              <div>
+                {{ 'Total Amount: ' + mealPart.grams}}
+                <br>
+                {{ 'Total Calories: ' + mealPart.ingredient.calories *
+                mealPart.grams }}
+              </div>
+            </a>
+          </mat-expansion-panel>
+        </mat-accordion>
       </div>
     </div>
   </mat-card>
 </div>
+
 <div class="col-md-4">
   <mat-card ngClass="dinner-box">
     <h2><mat-icon>restaurant</mat-icon> Dinner</h2>
     <div *ngFor="let meal of meals; let mealIndex= index">
       <div *ngIf="meal.mealType === 2">
-        <mat-card *ngFor="let mealPart of meal.mealParts">
+        <mat-accordion *ngFor="let mealPart of meal.mealParts">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h4>{{ mealPart.ingredient.name }}</h4>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <button mat-icon-button
+              (click)="onDeleteIngredient(meal.id, mealPart._id)">
+              <mat-icon>delete</mat-icon>
+            </button>
             <a (click)="onMealUpdate(meal.id, mealPart._id, mealPart.grams)">
-            <h4>{{ mealPart.ingredient.name }}</h4>
-            {{ 'Total Amount: ' + mealPart.grams}}
-            <br>
-            {{ 'Total Calories: ' + mealPart.ingredient.calories *
-            mealPart.grams }}
-          </a>
-          <button mat-icon-button
-            (click)="onDeleteIngredient(meal.id, mealPart._id)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </mat-card>
+              <div>
+                {{ 'Total Amount: ' + mealPart.grams}}
+                <br>
+                {{ 'Total Calories: ' + mealPart.ingredient.calories *
+                mealPart.grams }}
+              </div>
+            </a>
+          </mat-expansion-panel>
+        </mat-accordion>
       </div>
     </div>
   </mat-card>

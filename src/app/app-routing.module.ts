@@ -5,24 +5,28 @@ import { EditIngredientComponent } from './day/meal/ingredient/edit-ingredient/e
 import { IngredientComponent } from './day/meal/ingredient/ingredient.component';
 import { EditMealComponent } from './day/meal/edit-meal/edit-meal.component';
 import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const appRoutes: Routes = [
-  {path: '', component: DayComponent},
-  {path: 'meal/edit/:id', component: EditMealComponent},
+  {path: '', component: DayComponent, canActivate: [AuthGuard]},
+  {path: 'meal/edit/:id', component: EditMealComponent, canActivate: [AuthGuard]},
   {
-    path: 'ingredient-list', component: IngredientComponent,
+    path: 'ingredient-list', component: IngredientComponent, canActivate: [AuthGuard],
     children: [
-      {path: 'ingredient/editIngredient/:id', component: EditIngredientComponent},
-      {path: 'ingredient/new', component: EditIngredientComponent}
+      {path: 'ingredient/editIngredient/:id', component: EditIngredientComponent, canActivate: [AuthGuard]},
+      {path: 'ingredient/new', component: EditIngredientComponent, canActivate: [AuthGuard]}
     ]
   },
   {path: 'login', component: LoginComponent},
+  {path: 'signup', component: SignupComponent},
 
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule {
 }

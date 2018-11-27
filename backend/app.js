@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 const ingredientsRoute = require('./routes/ingredients')
 const mealsRoute = require('./routes/meals')
+const userRoute = require('./routes/user.js')
 
 const app = express();
 
@@ -29,7 +30,7 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
     'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
   );
   res.setHeader(
     'Access-Control-Allow-Methods',
@@ -40,5 +41,6 @@ app.use((req, res, next) => {
 
 app.use(ingredientsRoute);
 app.use(mealsRoute);
+app.use('/api/user' , userRoute);
 
 module.exports = app;

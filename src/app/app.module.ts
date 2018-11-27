@@ -8,22 +8,26 @@ import {
   MatIconModule,
   MatInputModule,
   MatListModule,
-  MatSelectModule
+  MatSelectModule,
+  MatExpansionModule,
+  MatToolbarModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { DayComponent } from './day/day.component';
 import { IngredientComponent } from './day/meal/ingredient/ingredient.component';
 import { MealComponent } from './day/meal/meal.component';
-import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditIngredientComponent } from './day/meal/ingredient/edit-ingredient/edit-ingredient.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './header/header.component';
 import { IngredientListComponent } from './day/meal/ingredient/ingredient-list/ingredient-list.component';
 import { SearchIngredientsPipe } from './pipes/search-ingredients.pipe';
 import { EditMealComponent } from './day/meal/edit-meal/edit-meal.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { AuthInterceptor } from './auth/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,8 @@ import { LoginComponent } from './auth/login/login.component';
     IngredientListComponent,
     SearchIngredientsPipe,
     EditMealComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,9 +56,11 @@ import { LoginComponent } from './auth/login/login.component';
     MatButtonModule,
     MatListModule,
     MatCardModule,
-    MatDialogModule
+    MatDialogModule,
+    MatExpansionModule,
+    MatToolbarModule
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -16,6 +16,8 @@ import { IngredientService } from './meal/ingredient/ingredient.service';
 import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { MealModel } from './meal/meal.model';
+import { AuthService } from '../auth/auth.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-current-day',
@@ -26,17 +28,21 @@ export class DayComponent implements OnInit, OnDestroy {
   @ViewChild('f') foodForm: NgForm;
   day: DayModel;
   subscription: Subscription;
+  userIsAuthenticated = false;
+  nickname: string;
   ingredients: IngredientModel[] = [];
   meals: MealModel[] = [];
+  week = moment.weekdays();
 
   constructor(
     private dayService: DayService,
     private mealService: MealService,
     private ingredientService: IngredientService,
-    private http: HttpClient
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
+    this.nickname = this.authService.getUserName();
     this.day = this.dayService.getDay();
     this.ingredients = this.ingredientService.getIngredients();
     this.subscription = this.ingredientService.ingredientsChanged.subscribe(

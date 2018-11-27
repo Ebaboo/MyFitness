@@ -7,8 +7,9 @@ const mealUpdatedSchema = mongoose.Schema({
       grams: { type: Number }
     }
   ],
-  mealType: { type: Number },
-  date: String
+  mealType: { type: Number, require: true },
+  date: { type: String, require: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', require: true },
 });
 
 module.exports = mongoose.model('MealUpdated', mealUpdatedSchema);

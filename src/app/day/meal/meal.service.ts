@@ -28,6 +28,7 @@ export class MealService implements OnInit {
       .subscribe(data => {
         this.meals = [...data.meals];
         this.mealsChanged.next([...this.meals]);
+        console.log(data);
       });
   }
 
