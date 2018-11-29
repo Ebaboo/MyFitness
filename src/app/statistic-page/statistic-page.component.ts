@@ -19,17 +19,21 @@ export class StatisticPageComponent implements OnInit {
   constructor(private mealService: MealService) {}
 
   ngOnInit() {
-    this.makeChart(this.startDate, this.currentDate);
-  }
-
-  onChange(startDate) {
+    this.startDate.setDate(this.startDate.getDate() - 7);
     this.makeChart();
   }
 
-  private makeChart(startDate: any, currentDate: any) {
-    currentDate = this.formatDate(this.currentDate);
-    startDate = this.formatDate(this.startDate);
-    console.log(startDate, currentDate);
+  onStartChange() {
+    this.makeChart();
+  }
+
+  onEndChange() {
+    this.makeChart();
+  }
+
+  private makeChart() {
+    const currentDate = this.formatDate(this.currentDate);
+    const startDate = this.formatDate(this.startDate);
     this.mealService
       .getMealsBetweenDates(startDate, currentDate)
       .subscribe(data => {
@@ -46,8 +50,7 @@ export class StatisticPageComponent implements OnInit {
           totalCaloriesForEachMeal
         );
 
-
-        const allDates = this.getDates('20-11-2018', startDate);
+        const allDates = this.getDates(startDate, currentDate);
         allDates.map(x => {
           if (!totalCaloriesByDay.hasOwnProperty(x)) {
             totalCaloriesByDay[x] = 0;
@@ -60,17 +63,41 @@ export class StatisticPageComponent implements OnInit {
         const allDatesKeys = Object.keys(totalCaloriesByDay);
         const caloriesByDates = Object.values(totalCaloriesByDay);
 
+        // Chart.pluginService.register({
+        //   beforeDraw: function(chart, easing) {
+        //     if (
+        //       chart.config.options.chartArea &&
+        //       chart.config.options.chartArea.backgroundColor
+        //     ) {
+        //       const helpers = Chart.helpers;
+        //       const ctx = chart.chart.ctx;
+        //       const chartArea = chart.chartArea;
+
+        //       ctx.save();
+        //       ctx.fillStyle = chart.config.options.chartArea.backgroundColor;
+        //       ctx.fillRect(
+        //         chartArea.left,
+        //         chartArea.top,
+        //         chartArea.right - chartArea.left,
+        //         chartArea.bottom - chartArea.top
+        //       );
+        //       ctx.restore();
+        //     }
+        //   }
+        // });
         this.chart = new Chart('canvas', {
+
           type: 'line',
           data: {
             labels: allDatesKeys,
             datasets: [
               {
+                theme: 'dark1',
                 label: 'Total Calories: ',
                 data: caloriesByDates,
-                title: 'Total Calories For Each Day',
                 borderColor: '#3cba9f',
-                fill: true
+                fill: true,
+                backgroundColor: 'rgba(255, 255, 255, 0.5)'
               }
             ]
           },
@@ -83,16 +110,21 @@ export class StatisticPageComponent implements OnInit {
               display: false
             },
             scales: {
-              xAxes: [
-                {
-                  display: true
+              xAxes: [{
+                gridLines: {
+                  color: 'rgba(255, 0, 0, 1)' // makes grid lines from y axis red
                 }
-              ],
+            }],
               yAxes: [
                 {
-                  display: true
+                  gridLines: {
+                    color: 'rgba(255, 0, 0, 1)' // makes grid lines from y axis red
+                  }
                 }
               ]
+            },
+            chartArea: {
+              backgroundColor: 'rgba(32, 31, 31 , 1)'
             }
           }
         });
@@ -104,7 +136,6 @@ export class StatisticPageComponent implements OnInit {
     const month = startDate.getMonth() + 1;
     const year = startDate.getFullYear();
     return `${day}-${month}-${year}`;
-
   }
 
   private sortMealsByDate() {
@@ -182,18 +213,3 @@ export class StatisticPageComponent implements OnInit {
     return obj;
   }
 }
-
-// const MealByDates = new Map();
-// this.meals.forEach((val, index) => {
-// const formatedDateAsIndex = moment(val.date).format('DD-MM-YYYY');
-//   if (index === 0) {
-//     MealByDates.set(formatedDateAsIndex, [val]);
-//     return;
-//   }
-//   if (MealByDates.has(formatedDateAsIndex)) {
-//     MealByDates.get(formatedDateAsIndex).push(val);
-//   } else {
-//     MealByDates.set(formatedDateAsIndex, [val]);
-//   }
-
-// });
