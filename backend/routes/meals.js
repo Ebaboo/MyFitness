@@ -22,7 +22,7 @@ router.get('/api/meals', checkAuth, (req, res, next) => {
         .toISOString(),
     },
     user: req.userData.userId
-  })
+  }).sort('date')
     .populate('mealParts.ingredient')
     .populate('user')
     .then(meals => {
@@ -44,7 +44,7 @@ router.post('/api/meals', checkAuth, (req, res, next) => {
   let meal = {
     mealParts: [{ ingredient: req.body.ingredientId, grams: req.body.amount }],
     mealType: req.body.mealType,
-    date: moment()
+    date: moment(req.body.date, 'DD-MM-YYYY')
       .add(2, 'hours')
       .utc()
       .toISOString(),

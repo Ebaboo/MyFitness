@@ -7,6 +7,7 @@ import { EditMealComponent } from './day/meal/edit-meal/edit-meal.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuard } from './auth/auth.guard';
+import { StatisticPageComponent } from './statistic-page/statistic-page.component';
 
 const appRoutes: Routes = [
   {path: '', component: DayComponent, canActivate: [AuthGuard]},
@@ -18,6 +19,7 @@ const appRoutes: Routes = [
       {path: 'ingredient/new', component: EditIngredientComponent, canActivate: [AuthGuard]}
     ]
   },
+  {path: 'statistic', component: StatisticPageComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
 

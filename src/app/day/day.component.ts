@@ -4,7 +4,8 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
-  ViewChild
+  ViewChild,
+  ChangeDetectorRef
 } from '@angular/core';
 import { DayService } from './day.service';
 import { NgForm } from '@angular/forms';
@@ -14,7 +15,6 @@ import { IngredientModel } from './meal/ingredient/ingredient.model';
 import { DayModel } from './day.model';
 import { IngredientService } from './meal/ingredient/ingredient.service';
 import { Subscription } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { MealModel } from './meal/meal.model';
 import { AuthService } from '../auth/auth.service';
 import * as moment from 'moment';
@@ -32,7 +32,9 @@ export class DayComponent implements OnInit, OnDestroy {
   nickname: string;
   ingredients: IngredientModel[] = [];
   meals: MealModel[] = [];
-  week = moment.weekdays();
+  lastSevenDays = [];
+  selectedIndex = null;
+  pickedDate: Date;
 
   constructor(
     private dayService: DayService,
@@ -55,9 +57,35 @@ export class DayComponent implements OnInit, OnDestroy {
         this.meals = meals;
       }
     );
+    this.getDates();
+
+  }
+
+  getDates() {
+    const dateArray = [];
+    let currentDate = moment(new Date())
+      .add(2, 'hours')
+      .utc()
+      .subtract(7, 'days');
+    const stopDates = moment(new Date()).add(1, 'days');
+    while (currentDate <= stopDates) {
+      dateArray.push(moment(currentDate).format('DD-MM-YYYY'));
+      currentDate = moment(currentDate).add(1, 'days');
+    }
+    this.lastSevenDays = dateArray;
+    const formatedCurrentDate = dateArray.length - 1;
+    this.onDaySelected(dateArray[(formatedCurrentDate)], formatedCurrentDate);
+  }
+
+  onDaySelected(day, i) {
+    console.log(day);
+    this.pickedDate = day;
+    this.selectedIndex = i;
+    this.mealService.getMealsForDay(day, day);
   }
 
   onSubmit() {
+    console.log(this.pickedDate);
     const formData = this.foodForm.value;
     const meals = this.meals;
     let mealId = null;
@@ -75,9 +103,13 @@ export class DayComponent implements OnInit, OnDestroy {
         break;
     }
     if (this.meals.length < 1) {
-      this.mealService.addMeal(formData.ingredientId, formData.amount,
-         mealType);
-         return;
+      this.mealService.addMeal(
+        formData.ingredientId,
+        formData.amount,
+        mealType,
+        this.pickedDate
+      );
+      return;
     }
 
     meals.forEach(meal => {
@@ -104,8 +136,12 @@ export class DayComponent implements OnInit, OnDestroy {
           );
         });
     } else {
-      this.mealService.addMeal(formData.ingredientId, formData.amount,
-        mealType);
+      this.mealService.addMeal(
+        formData.ingredientId,
+        formData.amount,
+        mealType,
+        this.pickedDate
+      );
       return;
     }
   }

@@ -22,7 +22,6 @@ export class MealComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-
     this.subscription = this.mealService.mealsChanged.subscribe(
       (meals: MealModel[]) => {
         this.meals = meals;

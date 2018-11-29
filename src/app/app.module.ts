@@ -10,7 +10,9 @@ import {
   MatListModule,
   MatSelectModule,
   MatExpansionModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatChipsModule,
+  MatNativeDateModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -28,6 +30,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
+import { StatisticPageComponent } from './statistic-page/statistic-page.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     EditMealComponent,
     LoginComponent,
     SignupComponent,
+    StatisticPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,7 +63,10 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     MatCardModule,
     MatDialogModule,
     MatExpansionModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]

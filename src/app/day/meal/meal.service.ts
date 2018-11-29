@@ -19,6 +19,13 @@ export class MealService implements OnInit {
 
   ngOnInit() {}
 
+  getMealsBetweenDates(greater: string, smaller: string) {
+    const queryParams = `?gt=${greater}&lt=${smaller}`;
+    return this.http.get<{ meals: MealModel[] }>(
+      'http://localhost:3000/api/meals' + queryParams
+    );
+  }
+
   getMealsForDay(greater: string, smaller: string) {
     const queryParams = `?gt=${greater}&lt=${smaller}`;
     this.http
@@ -28,15 +35,15 @@ export class MealService implements OnInit {
       .subscribe(data => {
         this.meals = [...data.meals];
         this.mealsChanged.next([...this.meals]);
-        console.log(data);
       });
   }
 
-  addMeal(ingredientId: string, amount: number, mealType: number) {
+  addMeal(ingredientId: string, amount: number, mealType: number, day: Date) {
     const meal = {
       ingredientId: ingredientId,
       mealType: mealType,
-      amount: amount
+      amount: amount,
+      date: day
     };
     this.http
       .post<{ message: string; meal: MealModel }>(
@@ -60,7 +67,6 @@ export class MealService implements OnInit {
         mealPartData
       )
       .subscribe(response => {
-        console.log(response.meal);
         this.meals.map(meal => {
           if (meal.id === response.meal.id) {
             meal.mealParts = response.meal.mealParts;
@@ -103,10 +109,9 @@ export class MealService implements OnInit {
         mealData
       )
       .subscribe(response => {
-        console.log(response.meal);
         this.meals.map(meal => {
           if (meal.id === response.meal.id) {
-            return meal.mealParts = response.meal.mealParts;
+            return (meal.mealParts = response.meal.mealParts);
           }
         });
         this.mealsChanged.next(this.meals);
