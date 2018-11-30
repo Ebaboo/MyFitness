@@ -16,9 +16,9 @@
     </mat-form-field>
   </div>
   <div class="row">
-    <div class="col-md-8">
-      <div *ngIf="chart">
-        <canvas id="canvas" width="400" height="400">{{ chart }}</canvas>
+    <div class="col-md-12">
+      <div [hidden]="!chart">
+        <canvas #huy id="canvas" width="400" height="400">{{ chart }}</canvas>
       </div>
     </div>
   </div>

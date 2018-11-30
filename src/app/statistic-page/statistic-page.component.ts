@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Chart } from 'chart.js';
 import { MealService } from '../day/meal/meal.service';
 import { MealModel } from '../day/meal/meal.model';
 import * as moment from 'moment';
-import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-statistic-page',
@@ -15,10 +14,14 @@ export class StatisticPageComponent implements OnInit {
   chart = [];
   startDate = new Date();
   currentDate = new Date();
+  counter = 0;
+  @ViewChild('huy', {read: ElementRef}) private huy: ElementRef;
+  public context: CanvasRenderingContext2D;
 
   constructor(private mealService: MealService) {}
 
   ngOnInit() {
+    console.log(this.huy.nativeElement);
     this.startDate.setDate(this.startDate.getDate() - 7);
     this.makeChart();
   }
@@ -63,71 +66,72 @@ export class StatisticPageComponent implements OnInit {
         const allDatesKeys = Object.keys(totalCaloriesByDay);
         const caloriesByDates = Object.values(totalCaloriesByDay);
 
-        // Chart.pluginService.register({
-        //   beforeDraw: function(chart, easing) {
-        //     if (
-        //       chart.config.options.chartArea &&
-        //       chart.config.options.chartArea.backgroundColor
-        //     ) {
-        //       const helpers = Chart.helpers;
-        //       const ctx = chart.chart.ctx;
-        //       const chartArea = chart.chartArea;
+        if (this.counter < 1) {
+          this.counter++;
+        }
 
-        //       ctx.save();
-        //       ctx.fillStyle = chart.config.options.chartArea.backgroundColor;
-        //       ctx.fillRect(
-        //         chartArea.left,
-        //         chartArea.top,
-        //         chartArea.right - chartArea.left,
-        //         chartArea.bottom - chartArea.top
-        //       );
-        //       ctx.restore();
-        //     }
-        //   }
-        // });
-        this.chart = new Chart('canvas', {
 
-          type: 'line',
-          data: {
-            labels: allDatesKeys,
-            datasets: [
-              {
-                theme: 'dark1',
-                label: 'Total Calories: ',
-                data: caloriesByDates,
-                borderColor: '#3cba9f',
-                fill: true,
-                backgroundColor: 'rgba(255, 255, 255, 0.5)'
-              }
-            ]
-          },
-          options: {
-            title: {
-              display: true,
-              text: 'Total Calories By Each Day'
-            },
-            legend: {
-              display: false
-            },
-            scales: {
-              xAxes: [{
-                gridLines: {
-                  color: 'rgba(255, 0, 0, 1)' // makes grid lines from y axis red
-                }
-            }],
-              yAxes: [
+
+
+        this.context = (<HTMLCanvasElement>this.huy.nativeElement).getContext('2d');
+        const gradient = this.context.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(115, 18, 255, 0.5)');
+        gradient.addColorStop(1, 'rgba(255, 18, 205, 0.5)');
+
+
+
+        if (this.chart.length < 1) {
+          this.chart = new Chart('canvas', {
+            type: 'line',
+            data: {
+              labels: allDatesKeys,
+              datasets: [
                 {
-                  gridLines: {
-                    color: 'rgba(255, 0, 0, 1)' // makes grid lines from y axis red
-                  }
+                  label: 'Total Calories: ',
+                  data: caloriesByDates,
+                  borderColor: '#3cba9f',
+                  fill: true,
+                  backgroundColor: gradient
                 }
               ]
             },
-            chartArea: {
-              backgroundColor: 'rgba(32, 31, 31 , 1)'
+            options: {
+              maintainAspectRatio: false,
+              showAllTooltips: false,
+              title: {
+                display: true,
+                text: 'Total Calories By Each Day'
+              },
+              legend: {
+                display: false
+              },
+              scales: {
+                xAxes: [
+                  {
+                    gridLines: {
+                      color: 'rgba(61, 199, 213, 0.3)' // makes grid lines from y axis red
+                    }
+                  }
+                ],
+                yAxes: [
+                  {
+                    gridLines: {
+                      color: 'rgba(61, 199, 213, 0.3)' // makes grid lines from y axis red
+                    }
+                  }
+                ]
+              },
+              chartArea: {
+                backgroundColor: 'rgba(0, 0, 0 ,0.05)'
+              }
             }
-          }
-        });
+          });
+        } else {
+          console.log(typeof(this.chart));
+          this.chart['data'].labels = allDatesKeys;
+          this.chart['data'].datasets[0].data = caloriesByDates;
+          this.chart.update();
+        }
       });
   }
 
