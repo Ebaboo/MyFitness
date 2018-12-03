@@ -10,7 +10,8 @@ router.post('/signup', (req, res, next) => {
       email: req.body.email,
       password: hash,
       nickname: req.body.nickname,
-      startWeight: req.body.startWeight
+      startWeight: req.body.startWeight,
+      gender: req.body.gender
     });
     user.save()
       .then(result => {
@@ -59,7 +60,8 @@ router.post('/login', (req, res, next) => {
         token: token,
         expiresIn: 3600,
         nickname: fetchedUser.nickname,
-        startWeight: fetchedUser.startWeight
+        startWeight: fetchedUser.startWeight,
+        gender: fetchedUser.gender
       });
     })
     .catch(err => {

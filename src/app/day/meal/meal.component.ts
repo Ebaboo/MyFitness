@@ -28,8 +28,8 @@ export class MealComponent implements OnInit, OnDestroy {
       }
     );
 
-    const time = moment().format('DD-MM-YYYY');
-    this.mealService.getMealsForDay(time, time);
+    // const time = moment().format('DD-MM-YYYY');
+    // this.mealService.getMealsForDay(time, time);
   }
 
   onDeleteIngredient(mealId: string, mealpartId: string) {

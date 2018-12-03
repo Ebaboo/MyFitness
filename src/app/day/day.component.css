@@ -30,3 +30,13 @@ h1 {
 .mat-standard-chip::after {
   color: #fff !important;
 }
+
+.ing_name{
+  font-weight: 600;
+  text-transform: capitalize
+}
+
+.ing_calories{
+    font-weight: 600;
+    text-transform: capitalize
+}

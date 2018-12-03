@@ -63,14 +63,20 @@ export class IngredientService {
       ingredientData.ingredientCalories
     );
     this.http
-      .post<{ message: string; ingredientId: string }>(
+      .post<{ message: string; ingredient: IngredientModel }>(
         'http://localhost:3000/api/ingredients',
         ingredient
       )
       .subscribe(responseData => {
-        const ingredientId = responseData.ingredientId;
-        ingredient._id = ingredientId;
-        this.ingredients.push(ingredient);
+        // console.log(responseData.ingredient);
+        // const ingredientId = responseData.ingredientId;
+        // ingredient._id = ingredientId;
+        const recievedIngredient = {
+          _id: responseData.ingredient._id,
+          name: responseData.ingredient.name,
+          calories: responseData.ingredient.calories
+        };
+        this.ingredients.push(recievedIngredient);
         this.ingredientsChanged.next(this.ingredients);
       });
   }

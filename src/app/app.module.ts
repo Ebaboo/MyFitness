@@ -12,7 +12,8 @@ import {
   MatExpansionModule,
   MatToolbarModule,
   MatChipsModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatRadioModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -32,6 +33,8 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { StatisticPageComponent } from './statistic-page/statistic-page.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { ProgressComponent } from './day/progress/progress.component';
+
 
 @NgModule({
   declarations: [
@@ -47,6 +50,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     LoginComponent,
     SignupComponent,
     StatisticPageComponent,
+    ProgressComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +70,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatToolbarModule,
     MatChipsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatRadioModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]

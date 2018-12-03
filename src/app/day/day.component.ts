@@ -78,14 +78,12 @@ export class DayComponent implements OnInit, OnDestroy {
   }
 
   onDaySelected(day, i) {
-    console.log(day);
     this.pickedDate = day;
     this.selectedIndex = i;
     this.mealService.getMealsForDay(day, day);
   }
 
   onSubmit() {
-    console.log(this.pickedDate);
     const formData = this.foodForm.value;
     const meals = this.meals;
     let mealId = null;

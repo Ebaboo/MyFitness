@@ -35,9 +35,9 @@
             required
             minlength="3"
             placeholder="Name or Nickname"
-            #passwordInput="ngModel"
+            #nickNameInput="ngModel"
             ngModel>
-          <mat-error *ngIf="passwordInput.invalid">Name or Nickname must be at least 3 chars.</mat-error>
+          <mat-error *ngIf="nickNameInput.invalid">Name or Nickname must be at least 3 chars.</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input
@@ -48,10 +48,20 @@
             required
             minlength="3"
             placeholder="Current Weight"
-            #passwordInput="ngModel"
+            #weightdInput="ngModel"
             ngModel>
-          <mat-error *ngIf="passwordInput.invalid">Please enter a valid weight</mat-error>
+          <mat-error *ngIf="weightdInput.invalid">Please enter a valid weight</mat-error>
         </mat-form-field>
+        <mat-radio-group
+        #genderInput="ngModel"
+            ngModel
+            name="gender"
+            required
+        >
+            <mat-radio-button value="male">Male</mat-radio-button>
+            <mat-radio-button value="female">Female</mat-radio-button>
+            <mat-error *ngIf="genderInput.invalid">Please choose your gender</mat-error>
+          </mat-radio-group>
         <button
           mat-raised-button
           color="accent"

@@ -1,0 +1,21 @@
+.mat-form-field{
+  font-size: 18px;
+}
+
+.mat-icon {
+    width: 100px;
+    height: 100px;
+  }
+
+  .mat-form-field-appearance-legacy
+   .mat-form-field-prefix
+    .mat-datepicker-toggle-default-icon,
+     .mat-form-field-appearance-legacy
+     .mat-form-field-suffix .mat-datepicker-toggle-default-icon {
+    width: 2em;
+}
+
+.choose_title{
+  font-size: 18px;
+  margin: 0 15px;
+}

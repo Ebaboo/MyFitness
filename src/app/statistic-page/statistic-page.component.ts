@@ -11,17 +11,16 @@ import * as moment from 'moment';
 })
 export class StatisticPageComponent implements OnInit {
   meals: MealModel[];
-  chart = [];
+  chart: any = [];
   startDate = new Date();
   currentDate = new Date();
   counter = 0;
-  @ViewChild('huy', {read: ElementRef}) private huy: ElementRef;
+  @ViewChild('canvas', { read: ElementRef }) private canvas: ElementRef;
   public context: CanvasRenderingContext2D;
 
   constructor(private mealService: MealService) {}
 
   ngOnInit() {
-    console.log(this.huy.nativeElement);
     this.startDate.setDate(this.startDate.getDate() - 7);
     this.makeChart();
   }
@@ -70,18 +69,15 @@ export class StatisticPageComponent implements OnInit {
           this.counter++;
         }
 
-
-
-
-        this.context = (<HTMLCanvasElement>this.huy.nativeElement).getContext('2d');
+        this.context = (<HTMLCanvasElement>(
+          this.canvas.nativeElement
+        )).getContext('2d');
         const gradient = this.context.createLinearGradient(0, 0, 0, 400);
         gradient.addColorStop(0, 'rgba(115, 18, 255, 0.5)');
         gradient.addColorStop(1, 'rgba(255, 18, 205, 0.5)');
 
-
-
         if (this.chart.length < 1) {
-          this.chart = new Chart('canvas', {
+          this.chart = new Chart(this.context, {
             type: 'line',
             data: {
               labels: allDatesKeys,
@@ -91,7 +87,11 @@ export class StatisticPageComponent implements OnInit {
                   data: caloriesByDates,
                   borderColor: '#3cba9f',
                   fill: true,
-                  backgroundColor: gradient
+                  backgroundColor: gradient,
+                  pointBorderColor: '#fff',
+                  pointBorderWidth: 2,
+                  pointRadius: 5,
+                  pointHoverRadius: 8
                 }
               ]
             },
@@ -127,7 +127,6 @@ export class StatisticPageComponent implements OnInit {
             }
           });
         } else {
-          console.log(typeof(this.chart));
           this.chart['data'].labels = allDatesKeys;
           this.chart['data'].datasets[0].data = caloriesByDates;
           this.chart.update();

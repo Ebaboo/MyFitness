@@ -3,4 +3,5 @@ export interface AuthData {
   password: string;
   nickname: string;
   startWeight: number;
+  gender: string;
 }

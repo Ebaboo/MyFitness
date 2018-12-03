@@ -14,12 +14,12 @@ router.get('/api/ingredients', (req, res, next) => {
 router.post('/api/ingredients', (req, res, next) => {
   const ingredient = new Ingredient({
     name: req.body.name,
-    calories: req.body.calories
+    calories: req.body.calories / 100
   });
   ingredient.save().then(createdIngredient => {
     res.status(201).json({
       message: 'Ingredient added',
-      ingredientId: createdIngredient._id
+      ingredient: createdIngredient
     });
   });
 });

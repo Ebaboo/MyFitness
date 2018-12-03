@@ -20,7 +20,8 @@ export class SignupComponent implements OnInit {
       form.value.email,
       form.value.password,
       form.value.nickname,
-      form.value.startWeight
+      form.value.startWeight,
+      form.value.gender
     );
   }
 }

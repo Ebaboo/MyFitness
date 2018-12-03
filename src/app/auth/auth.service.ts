@@ -31,17 +31,24 @@ export class AuthService {
     return localStorage.getItem('nickname');
   }
 
+  getGender() {
+    return localStorage.getItem('gender');
+  }
+
   createUser(
     email: string,
     password: string,
     nickname: string,
-    currentWeight: number
+    currentWeight: number,
+    gender: string
   ) {
+    console.log(gender);
     const user: AuthData = {
       email: email,
       password: password,
       nickname: nickname,
-      startWeight: currentWeight
+      startWeight: currentWeight,
+      gender: gender
     };
     this.http
       .post('http://localhost:3000/api/user/signup', user)
@@ -55,7 +62,8 @@ export class AuthService {
       email: email,
       password: password,
       nickname: null,
-      startWeight: null
+      startWeight: null,
+      gender: null
     };
     this.http
       .post<{
@@ -64,6 +72,7 @@ export class AuthService {
         expiresIn: number;
         nickname: string;
         startWeight: number;
+        gender: string
       }>('http://localhost:3000/api/user/login', user)
       .subscribe(response => {
         console.log(response);
@@ -81,7 +90,8 @@ export class AuthService {
             response.token,
             expirationData,
             response.nickname,
-            response.startWeight
+            response.startWeight,
+            response.gender
           );
           this.router.navigate(['/']);
         }
@@ -122,12 +132,14 @@ export class AuthService {
     token: string,
     expirationDate: Date,
     nickname: string,
-    startWeight: number
+    startWeight: number,
+    gender: string
   ) {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('nickname', nickname);
     localStorage.setItem('startWeight', startWeight.toString());
+    localStorage.setItem('gender', gender);
   }
 
   private clearAuthData() {

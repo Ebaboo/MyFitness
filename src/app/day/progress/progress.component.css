@@ -1,0 +1,22 @@
+.progress-box {
+  height: 25px;
+  width: 100%;
+  background: #aaa;
+  border-radius: 10px;
+  position: relative
+}
+.progress-box span {
+  font-size: 18px;
+  color: #fff;
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  line-height:25px;
+}
+
+.progress {
+  height: 25px;
+  border-radius: 10px;
+  max-width: 100%;
+}
+

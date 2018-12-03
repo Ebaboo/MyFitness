@@ -20,7 +20,7 @@
     <br><br>
     <ul *ngFor="let ingredient of ingredients | searchIngredients:searchStr">
       <li><a routerLink="ingredient/editIngredient/{{ ingredient._id }}">
-        {{ingredient.name | titlecase }}, Calories: {{ ingredient.calories }}
+        <span class="ing_name">{{ingredient.name | titlecase }}</span> - <span class="ing_calories">Calories in 100 gramm: </span> {{ ingredient.calories*100 }}
       </a></li>
     </ul>
 

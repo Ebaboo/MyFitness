@@ -1,3 +1,24 @@
 .mat-form-field{
     width: 100%;
 }
+
+.ing_name{
+  font-size: 20px;
+  font-weight: 500;
+  text-transform: capitalize;
+  color: #252525 !important;
+}
+
+.ing_calories{
+    font-weight: 500;
+    text-transform: capitalize;
+    color: #252525 !important;
+}
+
+a{
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+
+
+
