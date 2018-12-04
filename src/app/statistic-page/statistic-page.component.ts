@@ -47,23 +47,31 @@ export class StatisticPageComponent implements OnInit {
           dateKeys,
           MealByDates
         );
-        let totalCaloriesByDay = this.getTotalCaloriesByDate(
+        const totalCaloriesByDay = this.getTotalCaloriesByDate(
           dateKeys,
           totalCaloriesForEachMeal
         );
 
         const allDates = this.getDates(startDate, currentDate);
+        const soretedTotalCaloriesByDate = {};
         allDates.map(x => {
           if (!totalCaloriesByDay.hasOwnProperty(x)) {
             totalCaloriesByDay[x] = 0;
+            soretedTotalCaloriesByDate[x] = 0;
+          } else {
+            totalCaloriesByDay[x] = totalCaloriesByDay[x] ;
+            soretedTotalCaloriesByDate[x] = totalCaloriesByDay[x];
+
           }
         });
 
-        totalCaloriesByDay = Object.keys(totalCaloriesByDay)
-          .sort()
-          .reduce((r, k) => ((r[k] = totalCaloriesByDay[k]), r), {});
-        const allDatesKeys = Object.keys(totalCaloriesByDay);
-        const caloriesByDates = Object.values(totalCaloriesByDay);
+
+
+        // totalCaloriesByDay = Object.keys(totalCaloriesByDay)
+        //   .sort()
+        //   .reduce((r, k) => ((r[k] = totalCaloriesByDay[k]), r), {});
+        const allDatesKeys = Object.keys(soretedTotalCaloriesByDate);
+        const caloriesByDates = Object.values(soretedTotalCaloriesByDate);
 
         if (this.counter < 1) {
           this.counter++;
