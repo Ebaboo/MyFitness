@@ -42,7 +42,6 @@ export class ProgressComponent implements OnInit, OnDestroy {
             totalCalories + mealPart.grams * mealPart.ingredient.calories;
         });
       });
-      console.log(totalCalories);
       this.width = ((totalCalories / this.caloriesLimit) * 100).toFixed(2);
       this.applyColorToProgressBar();
     } else {

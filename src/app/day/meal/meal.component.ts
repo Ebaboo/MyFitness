@@ -4,9 +4,6 @@ import { Subscription } from 'rxjs';
 import { MealModel } from './meal.model';
 import { MealService } from './meal.service';
 import { EditMealComponent } from './edit-meal/edit-meal.component';
-import * as moment from 'moment';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-meal',
@@ -16,10 +13,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 export class MealComponent implements OnInit, OnDestroy {
   meals: MealModel[] = [];
   private subscription: Subscription;
-  constructor(
-    private mealService: MealService,
-    private dialog: MatDialog
-  ) {}
+  constructor(private mealService: MealService, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.subscription = this.mealService.mealsChanged.subscribe(
@@ -33,7 +27,9 @@ export class MealComponent implements OnInit, OnDestroy {
   }
 
   onDeleteIngredient(mealId: string, mealpartId: string) {
-    this.mealService.DeleteIngredient(mealId, mealpartId);
+    if (window.confirm('Are sure you want to delete this item ?')) {
+      this.mealService.DeleteIngredient(mealId, mealpartId);
+    }
   }
 
   onMealUpdate(mealId: string, mealPartId: string, amount: number) {

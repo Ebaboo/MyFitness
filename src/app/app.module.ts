@@ -34,6 +34,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
 import { StatisticPageComponent } from './statistic-page/statistic-page.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ProgressComponent } from './day/progress/progress.component';
+import { WeightComponent } from './day/weight/weight.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { ProgressComponent } from './day/progress/progress.component';
     SignupComponent,
     StatisticPageComponent,
     ProgressComponent,
+    WeightComponent,
   ],
   imports: [
     BrowserModule,

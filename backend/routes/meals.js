@@ -1,7 +1,7 @@
 const express = require('express');
 const MealUpdated = require('../models/meal-updated');
 const router = express.Router();
-const checkAuth = require('../middleware/check-auth')
+const checkAuth = require('../middleware/check-auth');
 
 var moment = require('moment');
 
@@ -19,10 +19,11 @@ router.get('/api/meals', checkAuth, (req, res, next) => {
         .add(2, 'hours')
         .utc()
         .endOf('day')
-        .toISOString(),
+        .toISOString()
     },
     user: req.userData.userId
-  }).sort('date')
+  })
+    .sort('date')
     .populate('mealParts.ingredient')
     .populate('user')
     .then(meals => {
@@ -41,14 +42,15 @@ router.get('/api/meals', checkAuth, (req, res, next) => {
 });
 
 router.post('/api/meals', checkAuth, (req, res, next) => {
+  const now = moment(req.body.date, 'DD-MM-YYYY')
+    .add(2, 'hours')
+    .utc()
+    .toISOString();
   let meal = {
     mealParts: [{ ingredient: req.body.ingredientId, grams: req.body.amount }],
     mealType: req.body.mealType,
-    date: moment(req.body.date, 'DD-MM-YYYY')
-      .add(2, 'hours')
-      .utc()
-      .toISOString(),
-      user: req.userData.userId
+    date: now,
+    user: req.userData.userId
   };
   meal = new MealUpdated(meal);
   meal.save();
@@ -83,16 +85,16 @@ router.patch('/api/meals-update', checkAuth, (req, res, next) => {
       .populate('user')
       .then(insideMeal => {
         const updatedIdInMeal = {
-            id: insideMeal._id,
-            mealType: insideMeal.mealType,
-            mealParts: insideMeal.mealParts,
-            date: insideMeal.date
-          };
-          res.status(201).json({
-            message: 'Mal Updated',
-            meal: updatedIdInMeal
-          });
+          id: insideMeal._id,
+          mealType: insideMeal.mealType,
+          mealParts: insideMeal.mealParts,
+          date: insideMeal.date
+        };
+        res.status(201).json({
+          message: 'Mal Updated',
+          meal: updatedIdInMeal
         });
+      });
   });
 });
 

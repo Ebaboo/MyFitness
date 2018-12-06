@@ -18,8 +18,8 @@
               <div>
                 {{ 'Total Amount: ' + mealPart.grams}}
                 <br>
-                {{ 'Total Calories: ' + mealPart.ingredient.calories *
-                mealPart.grams }}
+                Total Calories: {{ mealPart.ingredient.calories *
+                mealPart.grams | number : '1.2-2'}}
               </div>
             </a>
           </mat-expansion-panel>

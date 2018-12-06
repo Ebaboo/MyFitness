@@ -1,0 +1,29 @@
+mat-form-field{
+  width: 100%;
+}
+
+.mat-form-field-infix{
+  border-top: 0 important;
+}
+
+.mat-raised-button {
+  background-color: #337ab7;
+  color: #fff;
+}
+
+.show_weight{
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 15px;
+}
+.show_weight span{
+  color: red;
+}
+
+.cancel_btn{
+  background-color: red;
+  margin-left: 15px;
+}
+a{
+  text-decoration: none;
+}

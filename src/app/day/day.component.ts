@@ -18,6 +18,7 @@ import { Subscription } from 'rxjs';
 import { MealModel } from './meal/meal.model';
 import { AuthService } from '../auth/auth.service';
 import * as moment from 'moment';
+import { WeightService } from './weight/weight.service';
 
 @Component({
   selector: 'app-current-day',
@@ -40,7 +41,8 @@ export class DayComponent implements OnInit, OnDestroy {
     private dayService: DayService,
     private mealService: MealService,
     private ingredientService: IngredientService,
-    private authService: AuthService
+    private authService: AuthService,
+    private weightService: WeightService
   ) {}
 
   ngOnInit() {
@@ -81,6 +83,7 @@ export class DayComponent implements OnInit, OnDestroy {
     this.pickedDate = day;
     this.selectedIndex = i;
     this.mealService.getMealsForDay(day, day);
+    this.weightService.getWeightForDay(day);
   }
 
   onSubmit() {

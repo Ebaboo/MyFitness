@@ -3,6 +3,8 @@ import { Chart } from 'chart.js';
 import { MealService } from '../day/meal/meal.service';
 import { MealModel } from '../day/meal/meal.model';
 import * as moment from 'moment';
+import { WeightService } from '../day/weight/weight.service';
+import { forkJoin, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-statistic-page',
@@ -18,7 +20,10 @@ export class StatisticPageComponent implements OnInit {
   @ViewChild('canvas', { read: ElementRef }) private canvas: ElementRef;
   public context: CanvasRenderingContext2D;
 
-  constructor(private mealService: MealService) {}
+  constructor(
+    private mealService: MealService,
+    private weightService: WeightService
+  ) {}
 
   ngOnInit() {
     this.startDate.setDate(this.startDate.getDate() - 7);
@@ -34,48 +39,51 @@ export class StatisticPageComponent implements OnInit {
   }
 
   private makeChart() {
+    let allDates = [];
+    let allDatesKeys = [];
+    let caloriesByDates = [];
     const currentDate = this.formatDate(this.currentDate);
     const startDate = this.formatDate(this.startDate);
-    this.mealService
-      .getMealsBetweenDates(startDate, currentDate)
+      forkJoin(this.mealService
+        .getMealsBetweenDates(startDate, currentDate),
+        this.weightService.getWeightBetweenDates(startDate, currentDate)
+      )
       .subscribe(data => {
-        this.meals = [...data.meals];
-        const MealByDates = this.sortMealsByDate();
+        this.meals = [...data[0].meals];
+        const mealByDates = this.sortMealsByDate(this.meals);
 
-        const dateKeys = Object.keys(MealByDates);
+        const dateKeys = Object.keys(mealByDates);
         const totalCaloriesForEachMeal = this.getTotalCaloriesByMeal(
           dateKeys,
-          MealByDates
+          mealByDates
         );
+
         const totalCaloriesByDay = this.getTotalCaloriesByDate(
           dateKeys,
           totalCaloriesForEachMeal
         );
 
-        const allDates = this.getDates(startDate, currentDate);
-        const soretedTotalCaloriesByDate = {};
-        allDates.map(x => {
-          if (!totalCaloriesByDay.hasOwnProperty(x)) {
-            totalCaloriesByDay[x] = 0;
-            soretedTotalCaloriesByDate[x] = 0;
-          } else {
-            totalCaloriesByDay[x] = totalCaloriesByDay[x] ;
-            soretedTotalCaloriesByDate[x] = totalCaloriesByDay[x];
-
-          }
-        });
-
-
+        allDates = this.getDates(startDate, currentDate);
+        const soretedTotalCaloriesByDate = this.sortByDate(
+          allDates,
+          totalCaloriesByDay
+        );
 
         // totalCaloriesByDay = Object.keys(totalCaloriesByDay)
         //   .sort()
         //   .reduce((r, k) => ((r[k] = totalCaloriesByDay[k]), r), {});
-        const allDatesKeys = Object.keys(soretedTotalCaloriesByDate);
-        const caloriesByDates = Object.values(soretedTotalCaloriesByDate);
+        allDatesKeys = Object.keys(soretedTotalCaloriesByDate);
+        caloriesByDates = Object.values(soretedTotalCaloriesByDate);
 
-        if (this.counter < 1) {
-          this.counter++;
-        }
+        const weightByDated = this.sortWeightByDate(data[1].weightData);
+
+        const soretedWeightByDate = this.sortByDate(
+          allDates,
+          weightByDated
+        );
+        console.log(soretedWeightByDate);
+
+
 
         this.context = (<HTMLCanvasElement>(
           this.canvas.nativeElement
@@ -104,6 +112,7 @@ export class StatisticPageComponent implements OnInit {
               ]
             },
             options: {
+              spanGaps: true,
               maintainAspectRatio: false,
               showAllTooltips: false,
               title: {
@@ -142,6 +151,20 @@ export class StatisticPageComponent implements OnInit {
       });
   }
 
+  private sortByDate(allDates: any[], totalCaloriesByDay: {}) {
+    const soretedTotalCaloriesByDate = {};
+    allDates.map(x => {
+      if (!totalCaloriesByDay.hasOwnProperty(x)) {
+        totalCaloriesByDay[x] = 0;
+        soretedTotalCaloriesByDate[x] = 0;
+      } else {
+        totalCaloriesByDay[x] = totalCaloriesByDay[x];
+        soretedTotalCaloriesByDate[x] = totalCaloriesByDay[x];
+      }
+    });
+    return soretedTotalCaloriesByDate;
+  }
+
   private formatDate(startDate) {
     const day = startDate.getDate();
     const month = startDate.getMonth() + 1;
@@ -149,9 +172,9 @@ export class StatisticPageComponent implements OnInit {
     return `${day}-${month}-${year}`;
   }
 
-  private sortMealsByDate() {
+  private sortMealsByDate(meals) {
     const MealByDates = {};
-    this.meals.forEach((val, index) => {
+    meals.forEach((val, index) => {
       const formatedDateAsIndex = moment(val.date).format('DD-MM-YYYY');
       if (index === 0) {
         MealByDates[formatedDateAsIndex] = [val];
@@ -223,4 +246,26 @@ export class StatisticPageComponent implements OnInit {
     });
     return obj;
   }
+
+
+  private sortWeightByDate(meals) {
+    const weightByDates = {};
+    meals.forEach((val, index) => {
+      const formatedDateAsIndex = moment(val.date).format('DD-MM-YYYY');
+      if (index === 0) {
+        weightByDates[formatedDateAsIndex] = val.weight;
+
+        return;
+      }
+      if (weightByDates.hasOwnProperty(formatedDateAsIndex)) {
+        weightByDates[formatedDateAsIndex].push(val.weight);
+        console.log('huy');
+      } else {
+        weightByDates[formatedDateAsIndex] = val.weight;
+
+      }
+    });
+    return weightByDates;
+  }
+
 }
