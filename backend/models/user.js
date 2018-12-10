@@ -6,7 +6,8 @@ const userSchema = mongoose.Schema({
   password: {type: String, required: true},
   nickname: {type: String, required: true},
   startWeight: {type: Number, required: true},
-  gender: {type: String, required: true}
+  gender: {type: String, required: true},
+  goalWeight: {type: String, required: true}
 })
 
 userSchema.plugin(uniqueValidator);

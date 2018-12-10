@@ -11,7 +11,8 @@ router.post('/signup', (req, res, next) => {
       password: hash,
       nickname: req.body.nickname,
       startWeight: req.body.startWeight,
-      gender: req.body.gender
+      gender: req.body.gender,
+      goalWeight: req.body.goalWeight
     });
     user.save()
       .then(result => {
@@ -61,7 +62,8 @@ router.post('/login', (req, res, next) => {
         expiresIn: 3600,
         nickname: fetchedUser.nickname,
         startWeight: fetchedUser.startWeight,
-        gender: fetchedUser.gender
+        gender: fetchedUser.gender,
+        goalWeight: fetchedUser.goalWeight
       });
     })
     .catch(err => {

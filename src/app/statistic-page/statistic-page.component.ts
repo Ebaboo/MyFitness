@@ -64,7 +64,7 @@ export class StatisticPageComponent implements OnInit {
         );
 
         allDates = this.getDates(startDate, currentDate);
-        const soretedTotalCaloriesByDate = this.sortByDate(
+        const soretedTotalCaloriesByDate = this.sortAndInsertMealByDate(
           allDates,
           totalCaloriesByDay
         );
@@ -77,20 +77,22 @@ export class StatisticPageComponent implements OnInit {
 
         const weightByDated = this.sortWeightByDate(data[1].weightData);
 
-        const soretedWeightByDate = this.sortByDate(
+        const sortedWeightByDate = this.sortAndInsertWeightByDate(
           allDates,
           weightByDated
         );
-        console.log(soretedWeightByDate);
-
+        const weightByDates = Object.values(sortedWeightByDate);
 
 
         this.context = (<HTMLCanvasElement>(
           this.canvas.nativeElement
         )).getContext('2d');
         const gradient = this.context.createLinearGradient(0, 0, 0, 400);
-        gradient.addColorStop(0, 'rgba(115, 18, 255, 0.5)');
-        gradient.addColorStop(1, 'rgba(255, 18, 205, 0.5)');
+        gradient.addColorStop(0, 'rgba(159, 12, 255, 0.5)');
+        gradient.addColorStop(1, 'rgba(12, 255, 222, 0.5)');
+        const weightGradient = this.context.createLinearGradient(100, 100, 100, 400);
+        weightGradient.addColorStop(0, 'rgba(251, 255, 12, 0.6)');
+        weightGradient.addColorStop(1, 'rgba(255, 12, 218, 0.6)');
 
         if (this.chart.length < 1) {
           this.chart = new Chart(this.context, {
@@ -108,6 +110,17 @@ export class StatisticPageComponent implements OnInit {
                   pointBorderWidth: 2,
                   pointRadius: 5,
                   pointHoverRadius: 8
+                },
+                {
+                  label: 'Weight: ',
+                  data: weightByDates,
+                  borderColor: '#3cba9f',
+                  fill: true,
+                  backgroundColor: weightGradient,
+                  pointBorderColor: '#fff',
+                  pointBorderWidth: 2,
+                  pointRadius: 5,
+                  pointHoverRadius: 8
                 }
               ]
             },
@@ -120,7 +133,7 @@ export class StatisticPageComponent implements OnInit {
                 text: 'Total Calories By Each Day'
               },
               legend: {
-                display: false
+                display: true
               },
               scales: {
                 xAxes: [
@@ -146,23 +159,38 @@ export class StatisticPageComponent implements OnInit {
         } else {
           this.chart['data'].labels = allDatesKeys;
           this.chart['data'].datasets[0].data = caloriesByDates;
+          this.chart['data'].datasets[1].data = weightByDates;
           this.chart.update();
         }
       });
   }
 
-  private sortByDate(allDates: any[], totalCaloriesByDay: {}) {
+  private sortAndInsertMealByDate(allDates: any[], totalCaloriesByDay: {}) {
     const soretedTotalCaloriesByDate = {};
-    allDates.map(x => {
-      if (!totalCaloriesByDay.hasOwnProperty(x)) {
-        totalCaloriesByDay[x] = 0;
-        soretedTotalCaloriesByDate[x] = 0;
+    allDates.map(date => {
+      if (!totalCaloriesByDay.hasOwnProperty(date)) {
+        totalCaloriesByDay[date] = 0;
+        soretedTotalCaloriesByDate[date] = 0;
       } else {
-        totalCaloriesByDay[x] = totalCaloriesByDay[x];
-        soretedTotalCaloriesByDate[x] = totalCaloriesByDay[x];
+        totalCaloriesByDay[date] = totalCaloriesByDay[date];
+        soretedTotalCaloriesByDate[date] = totalCaloriesByDay[date];
       }
     });
     return soretedTotalCaloriesByDate;
+  }
+
+  private sortAndInsertWeightByDate(allDates: any[], totalCaloriesByDay: {}) {
+    const soretedWeight = {};
+    allDates.map(x => {
+      if (!totalCaloriesByDay.hasOwnProperty(x)) {
+        totalCaloriesByDay[x] = null;
+        soretedWeight[x] = null;
+      } else {
+        totalCaloriesByDay[x] = totalCaloriesByDay[x];
+        soretedWeight[x] = totalCaloriesByDay[x];
+      }
+    });
+    return soretedWeight;
   }
 
   private formatDate(startDate) {

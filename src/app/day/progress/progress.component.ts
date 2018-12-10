@@ -17,8 +17,10 @@ export class ProgressComponent implements OnInit, OnDestroy {
   meals: MealModel[];
   bgColor = 'white';
 
-  constructor(private mealService: MealService,
-    private authService: AuthService) {}
+  constructor(
+    private mealService: MealService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.caloriesLimit = this.setCaloriesLimitByGender();
@@ -51,26 +53,13 @@ export class ProgressComponent implements OnInit, OnDestroy {
 
   private applyColorToProgressBar() {
     const roundNumber = parseFloat(this.width);
-    const startColor = 'rgba(245, 242, 74 , 1)';
-    const middleColor = '#4AFF21';
-    const endColor = '#F31E1E';
-    if (roundNumber < 40) {
+    const middleColor = 'rgba(74, 255, 33, 1)';
+    const endColor = 'rgba(243, 30, 30, 1)';
+    if (roundNumber < 80) {
       this.bgColor =
-        '-webkit-gradient(linear, left top, right top,   color-stop(0%,' +
-        startColor +
-        '), color-stop(100%,rgba(125,185,232,0)))';
-    } else if  (roundNumber < 80 ) {
-      this.bgColor = '-webkit-gradient(linear, left top, right top,   color-stop(0%,' +
-      middleColor +
-      '), color-stop(100%, rgba(125,185,232,0)))';
-    } else if ( roundNumber < 99 ) {
-      this.bgColor = '-webkit-gradient(linear, left top, right top,   color-stop(0%,' +
-      endColor +
-      '), color-stop(100%,rgba(125,185,232,0)))';
-    } else {
-      this.bgColor = '-webkit-gradient(linear, left top, right top,   color-stop(0%,' +
-      endColor +
-      '), color-stop(100%,' + endColor + '))';
+      middleColor;
+    } else if (roundNumber < 99) {
+      this.bgColor = endColor;
     }
   }
 
@@ -81,7 +70,6 @@ export class ProgressComponent implements OnInit, OnDestroy {
     } else {
       return 2000;
     }
-
   }
 
   ngOnDestroy() {

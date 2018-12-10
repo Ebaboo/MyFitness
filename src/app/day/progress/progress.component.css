@@ -1,5 +1,5 @@
 .progress-box {
-  height: 25px;
+  height: 20px;
   width: 100%;
   background: #aaa;
   border-radius: 10px;
@@ -11,12 +11,17 @@
   text-align: center;
   width: 100%;
   position: absolute;
-  line-height:25px;
+  line-height:20px;
 }
 
 .progress {
-  height: 25px;
+  height: 20px;
   border-radius: 10px;
   max-width: 100%;
 }
 
+h4 {
+  text-transform: uppercase;
+  font-size: 18px !important;
+  font-weight: 500;
+}

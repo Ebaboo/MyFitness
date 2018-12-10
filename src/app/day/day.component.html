@@ -1,27 +1,29 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-4 col-xs-12">
-      <h4>This Day Calories progress</h4>
-      <app-progress></app-progress>
-    </div>
-  </div>
-  <br>
-
-  <div class="row">
-    <div class="col-md-12 col-xs-12">
+    <div class="col-md-12 col-xs-12 mat_chips">
+      <h4>My Calendar</h4>
       <mat-chip-list>
         <mat-chip
           [ngClass]="{'mat-primary': (i === selectedIndex)}"
           class="chip" (click)='onDaySelected(day, i)'
-          *ngFor="let day of lastSevenDays; let i= index" selected>{{ day }}</mat-chip>
+          *ngFor="let day of lastSevenDays; let i= index" selected>
+          <div class="week-day">{{ day | date: 'EEEE' }}</div>
+          <div class="short_date">{{ day | date: 'd MMM y' }}</div></mat-chip>
       </mat-chip-list>
+
     </div>
-    <br><br>
-    <div class="col-md-3 col-xs-12">
+
+  </div>
+  <div class="row">
+    <div class="col-md-8 col-xs-12">
+      <app-progress></app-progress>
+    </div>
+    <div class="col-md-4 col-xs-12">
       <app-weight [pickerDate]='pickedDate'></app-weight>
     </div>
   </div>
 
+  <h2>Add Meal:</h2>
   <div class="row">
     <div class="col-md-12">
       <form (ngSubmit)="onSubmit()" #f="ngForm">

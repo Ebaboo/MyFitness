@@ -1,4 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Raleway');
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+*:not(i, svg),
+h1, h2, h3, h4, h5, h6, h1, h2, h3, h4, h5, h6 {
+  font-family: 'Raleway', sans-serif !important;
+ }
+
+html,
+body {
+  height: 100%;
+  font-family: 'Raleway', sans-serif !important;
+
+}
+body:not(i){
+  margin: 0;
+  background-color: #f3f5f7;
+}
+
+.mat-list-item-content{
+  padding: 15px 25px !important;
+}
+
+.mat-form-field,.mat-form-field-appearance-legacy .mat-form-field-label,
+.mat-input-element,.mat-form-field.mat-focused .mat-form-field-label{
+  font-family: 'Raleway', sans-serif !important;
+}
+

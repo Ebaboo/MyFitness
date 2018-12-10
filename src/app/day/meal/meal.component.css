@@ -1,19 +1,19 @@
 .breakfast-box{
     padding: 15px;
     margin-bottom: 15px;
-    background: rgba(255,0,0,0.3)
+    background: #2deb90;
 }
 
 .lunch-box{
     padding: 15px;
     margin-bottom: 15px;
-    background: rgba(0,255,0,0.3)
+    background: #46b4fe;
 }
 
 .dinner-box{
     padding: 15px;
     margin-bottom: 15px;
-    background: rgba(0,0,255,0.3)
+    background: #ff527a;
 }
 
 a{
@@ -34,3 +34,4 @@ button{
     float: right;
     bottom: 0;
 }
+

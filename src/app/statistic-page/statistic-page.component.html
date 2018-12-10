@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-
+    <div class="col-md-8 col-md-offset-2">
     <mat-form-field>
       <input matInput [matDatepicker]="startPicker" placeholder="Choose start
         date" [(ngModel)]="startDate" (ngModelChange)="onStartChange()">
@@ -14,6 +14,7 @@
       <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
       <mat-datepicker #endPicker></mat-datepicker>
     </mat-form-field>
+  </div>
   </div>
   <div class="row">
     <div class="col-md-12">

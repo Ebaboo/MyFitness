@@ -13,7 +13,7 @@ import {
   MatToolbarModule,
   MatChipsModule,
   MatNativeDateModule,
-  MatRadioModule
+  MatRadioModule, MatSidenavModule, MatButtonToggleModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -23,7 +23,6 @@ import { MealComponent } from './day/meal/meal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditIngredientComponent } from './day/meal/ingredient/edit-ingredient/edit-ingredient.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HeaderComponent } from './header/header.component';
 import { IngredientListComponent } from './day/meal/ingredient/ingredient-list/ingredient-list.component';
 import { SearchIngredientsPipe } from './pipes/search-ingredients.pipe';
 import { EditMealComponent } from './day/meal/edit-meal/edit-meal.component';
@@ -35,6 +34,9 @@ import { StatisticPageComponent } from './statistic-page/statistic-page.componen
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ProgressComponent } from './day/progress/progress.component';
 import { WeightComponent } from './day/weight/weight.component';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 
 @NgModule({
@@ -44,7 +46,6 @@ import { WeightComponent } from './day/weight/weight.component';
     IngredientComponent,
     MealComponent,
     EditIngredientComponent,
-    HeaderComponent,
     IngredientListComponent,
     SearchIngredientsPipe,
     EditMealComponent,
@@ -53,6 +54,7 @@ import { WeightComponent } from './day/weight/weight.component';
     StatisticPageComponent,
     ProgressComponent,
     WeightComponent,
+    MainNavComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,7 +75,11 @@ import { WeightComponent } from './day/weight/weight.component';
     MatChipsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatRadioModule
+    MatRadioModule,
+    MatButtonToggleModule,
+    LayoutModule,
+    MatSidenavModule,
+    AngularFontAwesomeModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]

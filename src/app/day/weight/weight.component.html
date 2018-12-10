@@ -1,27 +1,32 @@
 <div class="row">
   <div class="col-md-12">
-    <div *ngIf="showForm; else showWeight">
+    <div style="float: right;" *ngIf="showForm; else showWeight">
       <form [formGroup]="form" (ngSubmit)="form.valid && onSubmit()">
-        <mat-form-field>
-          <input
-            matInput
-            type="number"
-            id="text"
-            name="weight"
-            placeholder="Enter current weight please"
-            formControlName="weight">
-        </mat-form-field>
-        <button mat-raised-button
-          type="submit"
-          [disabled]="!form.valid">Submit Weight</button>
-        <a *ngIf="cancelButtonAppear" class="cancel_btn" mat-raised-button (click)="onCancel()">Cancel</a>
+        <h4>Weight</h4>
+        <div class="col-md-4">
+            <mat-form-field>
+                <input
+                  matInput
+                  type="number"
+                  id="text"
+                  name="weight"
+                  placeholder="Enter current weight please"
+                  formControlName="weight">
+              </mat-form-field>
+        </div>
+       <div class="col-md-8"><button mat-raised-button
+        type="submit"
+        [disabled]="!form.valid">Submit</button>
+      <a *ngIf="cancelButtonAppear" class="cancel_btn" mat-raised-button (click)="onCancel()">Cancel</a></div>
+
       </form>
 
     </div>
     <ng-template #showWeight>
-      <p class="show_weight">Your current weight is: <span>{{
-          weightOfDay[0].weight }}kg</span></p>
-      <button mat-raised-button (click)="onChangeWeight()">Change Weight</button>
+      <h4 class="show_weight">Current weight: <span>{{
+          weightOfDay[0].weight }}kg</span>
+      &nbsp;&nbsp;&nbsp;<button mat-raised-button (click)="onChangeWeight()">Change Weight</button>
+    </h4>
     </ng-template>
     </div>
   </div>

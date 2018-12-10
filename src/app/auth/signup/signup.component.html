@@ -1,20 +1,24 @@
 <div class="container">
   <div class="col-md-6 col-md-offset-3">
     <mat-card>
+        <h3 style="text-align: center"><i class="fa fa-user"></i>Login to
+          dashboard</h3>
       <form (submit)="onSignup(loginForm)" #loginForm="ngForm">
+          <p>Email: </p>
         <mat-form-field>
           <input
             matInput
             type="email"
             name="email"
             minlength="3"
-            placeholder="Email"
+            placeholder="Enter your e-mail"
             #emailInput="ngModel"
             ngModel
             required
             email>
           <mat-error *ngIf="emailInput.invalid">Please enter valid email.</mat-error>
         </mat-form-field>
+        <p>Password: </p>
         <mat-form-field>
           <input
             matInput
@@ -22,11 +26,12 @@
             name="password"
             required
             minlength="3"
-            placeholder="password"
+            placeholder="Enter your password"
             #passwordInput="ngModel"
             ngModel>
           <mat-error *ngIf="passwordInput.invalid">Please enter valid password.</mat-error>
         </mat-form-field>
+        <p>Name or Nickname: </p>
         <mat-form-field>
           <input
             matInput
@@ -34,11 +39,12 @@
             name="nickname"
             required
             minlength="3"
-            placeholder="Name or Nickname"
+            placeholder="Exter your Name or Nickname"
             #nickNameInput="ngModel"
             ngModel>
           <mat-error *ngIf="nickNameInput.invalid">Name or Nickname must be at least 3 chars.</mat-error>
         </mat-form-field>
+        <p>Current Weight: </p>
         <mat-form-field>
           <input
             matInput
@@ -47,7 +53,20 @@
             name="startWeight"
             required
             minlength="3"
-            placeholder="Current Weight"
+            placeholder="Enter your current weight"
+            #weightdInput="ngModel"
+            ngModel>
+          <mat-error *ngIf="weightdInput.invalid">Please enter a valid weight</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            type="number"
+            step="0.01"
+            name="goalWeight"
+            required
+            minlength="3"
+            placeholder="Enter your goal weight"
             #weightdInput="ngModel"
             ngModel>
           <mat-error *ngIf="weightdInput.invalid">Please enter a valid weight</mat-error>

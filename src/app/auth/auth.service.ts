@@ -12,6 +12,12 @@ export class AuthService {
   private isAuthenticated;
   private tokenTimer: any;
   private authStatusListener = new Subject<boolean>();
+  authDataChanged = new Subject<{
+    startWeight: string;
+    nickname: string;
+    gender: string;
+    goalWeight: string;
+  }>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -35,12 +41,21 @@ export class AuthService {
     return localStorage.getItem('gender');
   }
 
+  getStartWeight() {
+    return localStorage.getItem('startWeight');
+  }
+
+  getGoal() {
+    return localStorage.getItem('goalWeight');
+  }
+
   createUser(
     email: string,
     password: string,
     nickname: string,
     currentWeight: number,
-    gender: string
+    gender: string,
+    goalWeight: string
   ) {
     console.log(gender);
     const user: AuthData = {
@@ -48,7 +63,8 @@ export class AuthService {
       password: password,
       nickname: nickname,
       startWeight: currentWeight,
-      gender: gender
+      gender: gender,
+      goalWeight: goalWeight
     };
     this.http
       .post('http://localhost:3000/api/user/signup', user)
@@ -63,7 +79,8 @@ export class AuthService {
       password: password,
       nickname: null,
       startWeight: null,
-      gender: null
+      gender: null,
+      goalWeight: null
     };
     this.http
       .post<{
@@ -72,7 +89,8 @@ export class AuthService {
         expiresIn: number;
         nickname: string;
         startWeight: number;
-        gender: string
+        gender: string;
+        goalWeight: string;
       }>('http://localhost:3000/api/user/login', user)
       .subscribe(response => {
         console.log(response);
@@ -91,7 +109,8 @@ export class AuthService {
             expirationData,
             response.nickname,
             response.startWeight,
-            response.gender
+            response.gender,
+            response.goalWeight
           );
           this.router.navigate(['/']);
         }
@@ -133,13 +152,22 @@ export class AuthService {
     expirationDate: Date,
     nickname: string,
     startWeight: number,
-    gender: string
+    gender: string,
+    goalWeight: string
   ) {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('nickname', nickname);
     localStorage.setItem('startWeight', startWeight.toString());
     localStorage.setItem('gender', gender);
+    localStorage.setItem('goalWeight', goalWeight);
+    const authData = {
+      nickname: localStorage.getItem('nickname'),
+      startWeight: localStorage.getItem('startWeight'),
+      gender: localStorage.getItem('gender'),
+      goalWeight: localStorage.getItem('goalWeight')
+    };
+    this.authDataChanged.next(authData);
   }
 
   private clearAuthData() {
@@ -147,6 +175,8 @@ export class AuthService {
     localStorage.removeItem('expiration');
     localStorage.removeItem('nickname');
     localStorage.removeItem('startWeight');
+    localStorage.removeItem('gender');
+    localStorage.removeItem('goalWeight');
   }
 
   private getAuthData() {

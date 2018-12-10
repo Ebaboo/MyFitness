@@ -1,0 +1,54 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="false"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="!(isHandset$ | async)">
+    <mat-toolbar class="mat-primary"><a routerLink="">Dashboard</a></mat-toolbar>
+    <mat-nav-list>
+      <div class="nickname">
+        <h3>{{nickname}}</h3>
+        <p>{{gender}}</p>
+      </div>
+
+      <div class="menu-weight">
+        <div class="col-md-6 current">
+          <h4>Start Weight</h4>
+          <span class="weight_digit">{{ startWeight }}</span><span class="weight_kg">kg</span>
+        </div>
+        <div class="col-md-6 goal">
+            <h4>Goal</h4>
+            <span class="weight_digit">{{ goalWeight }}</span><span class="weight_kg">kg</span>
+        </div>
+      </div>
+
+      <a mat-list-item routerLink="" [routerLinkActiveOptions]="{ exact: true
+        }" routerLinkActive="menu_active"><mat-icon>home</mat-icon>Home</a>
+      <a mat-list-item routerLink="/statistic"
+        routerLinkActive="menu_active"><mat-icon>trending_up</mat-icon>Statistic</a>
+      <a mat-list-item routerLink="/ingredient-list"
+        routerLinkActive="menu_active"><mat-icon>fastfood</mat-icon>Ingredients</a>
+      <div class="auth-section">
+        <a mat-list-item *ngIf="!userIsAuthenticated" style="float: right;"
+          routerLink="/login" routerLinkActive="menu_active"><mat-icon>people</mat-icon>Login</a>
+        <a mat-list-item *ngIf="!userIsAuthenticated" style="float: right;"
+          routerLink="/signup" routerLinkActive="menu_active"><mat-icon>people_outline</mat-icon>Signup</a>
+        <a mat-list-item *ngIf="userIsAuthenticated" style="float: right;"
+          (click)="onLogout()"><mat-icon>exit_to_app</mat-icon> Logout</a>
+      </div>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <h2>MY FOODY <span>APP</span></h2>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

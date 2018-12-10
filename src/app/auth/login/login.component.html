@@ -1,21 +1,24 @@
 <div class="container">
   <div class="col-md-6 col-md-offset-3">
-    <h3 style="text-align: center">Please login, to see your meal panel</h3>
     <mat-card>
+      <h3 style="text-align: center"><i class="fa fa-user"></i>Login to
+        dashboard</h3>
       <form (submit)="onLogin(loginForm)" #loginForm="ngForm">
+        <p>Email: </p>
         <mat-form-field>
           <input
             matInput
             type="email"
             name="email"
             minlength="3"
-            placeholder="Email"
+            placeholder="Enter your e-mail"
             #emailInput="ngModel"
             ngModel
             required
             email>
           <mat-error *ngIf="emailInput.invalid">Please enter valid email.</mat-error>
         </mat-form-field>
+        <p>Password: </p>
         <mat-form-field>
           <input
             matInput
@@ -23,17 +26,18 @@
             name="password"
             required
             minlength="3"
-            placeholder="password"
+            placeholder="Enter your password"
             #passwordInput="ngModel"
             ngModel>
           <mat-error *ngIf="passwordInput.invalid">Please enter valid password.</mat-error>
         </mat-form-field>
         <button
           mat-raised-button
-          color="accent"
           type="submit">Login
         </button>
       </form>
+      <p class="signup">I don’t have an account yet <a
+          [routerLink]="['/signup']"> signup</a></p>
     </mat-card>
   </div>
 </div>

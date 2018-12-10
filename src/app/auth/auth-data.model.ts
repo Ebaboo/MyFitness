@@ -4,4 +4,5 @@ export interface AuthData {
   nickname: string;
   startWeight: number;
   gender: string;
+  goalWeight: string;
 }

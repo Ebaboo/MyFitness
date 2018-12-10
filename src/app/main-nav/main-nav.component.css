@@ -1,0 +1,108 @@
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 300px;
+}
+
+.mat-list-item {
+  height: auto !important;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary,
+.mat-toolbar.mat-primary a {
+  text-decoration: none;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #46b4fe !important;
+  color: #fff;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.mat-icon {
+  margin-right: 20px;
+}
+
+.auth-section {
+  margin-top: 50px;
+}
+
+.nickname {
+  margin-left: 30px;
+  margin-bottom: 25px;
+}
+
+.menu-weight {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 15px;
+  display: flex
+}
+
+.current {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 30px;
+  border-right: 1px solid #ccc;
+  flex: 1
+}
+
+.current .weight_digit {
+  font-weight: 600;
+  font-size: 22px;
+  margin-right: 5px;
+}
+
+.current .weight_kg {
+  font-weight: 600;
+  font-size: 22px;
+  margin-right: 5px;
+  color: #999999;
+}
+
+.current h4 {
+  font-weight: 600;
+  font-size: 16px;
+  color: #26d1fe;
+}
+
+.goal {
+  flex: 1;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 30px;
+  border-right: 1px solid #ccc;
+}
+
+.goal .weight_digit {
+  font-weight: 600;
+  font-size: 22px;
+  margin-right: 5px;
+}
+
+.goal .weight_kg {
+  font-weight: 600;
+  font-size: 22px;
+  margin-right: 5px;
+  color: #999999;
+}
+
+.goal h4 {
+  font-weight: 600 !important;
+  font-size: 16px;
+  color: #22dd91;
+}
+
+.menu_active{
+  color: #26d1fe;
+}

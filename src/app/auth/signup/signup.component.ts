@@ -9,6 +9,7 @@ import { AuthService } from '../auth.service';
 })
 export class SignupComponent implements OnInit {
   constructor(private authService: AuthService) {}
+  gender = 'male';
 
   ngOnInit() {}
 
@@ -21,7 +22,8 @@ export class SignupComponent implements OnInit {
       form.value.password,
       form.value.nickname,
       form.value.startWeight,
-      form.value.gender
+      form.value.gender,
+      form.value.goalWeight
     );
   }
 }
