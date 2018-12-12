@@ -1,26 +1,32 @@
+<button mat-button
+  routerLink="ingredient/new"
+  class="btn-primary btn">
+  <mat-icon>add_circle_outline</mat-icon> Add Ingredient
+</button>
+<br><br>
 <h3>
-      All Ingredients
-    </h3>
-    <hr>
-      <mat-form-field>
-        <label for="searchBox"></label>
-        <input
-            matInput
-            type="text"
-            id="searchBox"
-            placeholder="Search for ingredient"
-            [(ngModel)]="searchStr"
-        >
-      </mat-form-field>
-    <button mat-button
-            routerLink="ingredient/new"
-            class="btn-primary btn">
-      <mat-icon>add_circle_outline</mat-icon> Add Ingredient
-    </button>
-    <br><br>
-    <ul *ngFor="let ingredient of ingredients | searchIngredients:searchStr">
-      <li><a routerLink="ingredient/editIngredient/{{ ingredient._id }}">
-        <span class="ing_name">{{ingredient.name | titlecase }}</span> - <span class="ing_calories">Calories in 100 gramm: </span> {{ ingredient.calories*100 }}
-      </a></li>
-    </ul>
+  All Ingredients
+</h3>
+<mat-form-field>
+  <label for="searchBox"></label>
+  <input
+    matInput
+    type="text"
+    id="searchBox"
+    placeholder="Search for ingredient"
+    [(ngModel)]="searchStr">
+</mat-form-field>
 
+<br><br>
+<div class="ing_list">
+  <a *ngFor="let ingredient of ingredients | searchIngredients:searchStr"
+    routerLink="ingredient/editIngredient/{{ ingredient._id }}">
+    <span class="ing_name">{{ingredient.name | titlecase }}</span>
+     <span
+      class="ing_calories">
+      {{ ingredient.calories*100 }}kkal
+      <span class="grams_title"> / 100gr</span>
+    </span>
+    <br>
+  </a>
+</div>

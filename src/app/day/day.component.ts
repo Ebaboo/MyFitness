@@ -76,6 +76,7 @@ export class DayComponent implements OnInit, OnDestroy {
     }
     this.lastSevenDays = dateArray;
     const formatedCurrentDate = dateArray.length - 1;
+    console.log(this.lastSevenDays);
     this.onDaySelected(dateArray[(formatedCurrentDate)], formatedCurrentDate);
   }
 

@@ -2,12 +2,33 @@
     width: 100%;
 }
 .submit-btn.mat-flat-button{
-     background-color: #337AB7;
+     background-color: #46b4fe;
      color:#fff;
  }
 
 .cancel-btn.mat-flat-button{
-    background-color: #FF3333;
-    color:#fff;
+    background-color: transparent;
+    color:#46b4fe;
     margin-left: 25px;
+    border: 1px solid #46b4fe;
+
+}
+
+.add_edit_box{
+  padding: 25px;
+  border-radius: 25px;
+  -webkit-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1) !important;
+  -moz-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1)!important;
+  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1)!important;
+}
+
+h3{
+  font-size: 22px !important;
+}
+.edit_title{
+  color: #46b4fe;
+}
+
+.ingredient_title{
+  font-weight: 600;
 }

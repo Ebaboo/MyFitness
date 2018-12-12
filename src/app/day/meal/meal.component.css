@@ -2,15 +2,18 @@
     padding: 15px;
     margin-bottom: 15px;
     background: #2deb90;
+    color: #fff;
 }
 
 .lunch-box{
+  color: #fff;
     padding: 15px;
     margin-bottom: 15px;
     background: #46b4fe;
 }
 
 .dinner-box{
+  color: #fff;
     padding: 15px;
     margin-bottom: 15px;
     background: #ff527a;

@@ -21,8 +21,10 @@ mat-form-field{
 }
 
 .cancel_btn{
-  background-color: red;
+  background-color: transparent;
+  color:#46b4fe;
   margin-left: 15px;
+  border: 1px solid #46b4fe;
 }
 a{
   text-decoration: none;

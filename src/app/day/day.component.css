@@ -10,12 +10,12 @@ h1 {
 }
 
 .mat-chip-selected.mat-primary{
-  background-color: #46b4fe !important;
+  background-color: #cfecff !important;
 }
 
 
 .mat-chip-selected.mat-primary .short_date{
-  color: #fff !important;
+  color: #000 !important;
 }
 /* #lastDaysBox {
   width: 100%;
@@ -56,9 +56,9 @@ h4 {
 }
 
 mat-chip {
-  -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2) !important;
-  -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2)!important;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2)!important;
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1) !important;
+  -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1)!important;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1)!important;
 }
 
 .week-day {
@@ -92,6 +92,10 @@ mat-chip {
   color: rgba(0, 0, 0, 0.87);
 }
 
+.line{
+  margin: 40px 0 25px 0;
+  border: 5px solid #eee;
+}
 
 @media only screen and (max-width: 1600px) {
   .mat-standard-chip {

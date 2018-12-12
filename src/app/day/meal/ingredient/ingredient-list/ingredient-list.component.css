@@ -3,16 +3,17 @@
 }
 
 .ing_name{
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: 600;
   text-transform: capitalize;
   color: #252525 !important;
 }
 
 .ing_calories{
-    font-weight: 500;
     text-transform: capitalize;
     color: #252525 !important;
+    float: right;
+    font-weight: 600;
 }
 
 a{
@@ -20,5 +21,14 @@ a{
   cursor: pointer !important;
 }
 
+h3{
+  font-weight: 600;
+}
 
+.btn-primary{
+  background-color: #46b4fe !important;
+}
 
+.grams_title{
+  font-weight: 400;
+}

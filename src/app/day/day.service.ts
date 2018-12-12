@@ -1,6 +1,10 @@
 import { Injectable, OnInit } from '@angular/core';
 import { DayModel } from './day.model';
 
+import { environment } from '../../environments/environment';
+
+const BACKEND_URL = environment.apiUrl + '/weight';
+
 @Injectable({
   providedIn: 'root'
 })

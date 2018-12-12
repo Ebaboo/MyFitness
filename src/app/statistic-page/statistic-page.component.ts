@@ -282,12 +282,11 @@ export class StatisticPageComponent implements OnInit {
       const formatedDateAsIndex = moment(val.date).format('DD-MM-YYYY');
       if (index === 0) {
         weightByDates[formatedDateAsIndex] = val.weight;
-
         return;
       }
       if (weightByDates.hasOwnProperty(formatedDateAsIndex)) {
-        weightByDates[formatedDateAsIndex].push(val.weight);
-        console.log('huy');
+        console.log(val.weight);
+        weightByDates[formatedDateAsIndex] = val.weight;
       } else {
         weightByDates[formatedDateAsIndex] = val.weight;
 

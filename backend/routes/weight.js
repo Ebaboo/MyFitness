@@ -20,10 +20,12 @@ router.get('/api/weight', checkAuth, (req, res, next) => {
         .utc()
         .endOf('day')
         .toISOString()
-    }
+    },
+    user: req.userData.userId
   })
     .sort('date')
     .then(weight => {
+      console.log(weight);
       res.status(201).json({
         message: 'weight found',
         weightData: weight
@@ -31,14 +33,15 @@ router.get('/api/weight', checkAuth, (req, res, next) => {
     });
 });
 
-router.post('/api/weight', (req, res, next) => {
+router.post('/api/weight', checkAuth, (req, res, next) => {
   const now = moment(req.body.date, 'DD-MM-YYYY')
     .add(2, 'hours')
     .utc()
     .toISOString();
   const weight = new Weight({
     weight: req.body.weight,
-    date: now
+    date: now,
+    user: req.userData.userId
   });
   weight.save().then(weight =>
     res.status(201).json({

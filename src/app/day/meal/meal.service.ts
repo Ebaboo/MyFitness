@@ -7,12 +7,16 @@ import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
 import { map } from 'rxjs/operators';
 
+import { environment } from '../../../environments/environment';
+
+const BACKEND_URL = environment.apiUrl;
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class MealService implements OnInit {
   meals: MealModel[] = [];
-
   mealsChanged = new Subject<MealModel[]>();
 
   constructor(private http: HttpClient) {}
@@ -22,7 +26,7 @@ export class MealService implements OnInit {
   getMealsBetweenDates(greater: string, smaller: string) {
     const queryParams = `?gt=${greater}&lt=${smaller}`;
     return this.http.get<{ meals: MealModel[] }>(
-      'http://localhost:3000/api/meals' + queryParams
+      BACKEND_URL + '/meals' + queryParams
     );
   }
 
@@ -30,7 +34,7 @@ export class MealService implements OnInit {
     const queryParams = `?gt=${greater}&lt=${smaller}`;
     this.http
       .get<{ meals: MealModel[] }>(
-        'http://localhost:3000/api/meals' + queryParams
+        BACKEND_URL + '/meals' + queryParams
       )
       .subscribe(data => {
         this.meals = [...data.meals];
@@ -47,7 +51,7 @@ export class MealService implements OnInit {
     };
     this.http
       .post<{ message: string; meal: MealModel }>(
-        'http://localhost:3000/api/meals',
+        BACKEND_URL + '/meals',
         meal
       )
       .subscribe(responseMeal => {
@@ -63,7 +67,7 @@ export class MealService implements OnInit {
     };
     this.http
       .patch<{ message: string; meal: MealModel }>(
-        'http://localhost:3000/api/meals/' + mealId,
+        BACKEND_URL + '/meals' + '/' + mealId,
         mealPartData
       )
       .subscribe(response => {
@@ -84,7 +88,7 @@ export class MealService implements OnInit {
     const queryParams = `?mealId=${mealId}&mealPartId=${mealPartId}`;
     this.http
       .delete<{ message: string; meals: MealModel }>(
-        'http://localhost:3000/api/meals/' + queryParams
+        BACKEND_URL + '/meals' + queryParams
       )
       .subscribe(responseData => {
         this.meals.forEach(meal => {
@@ -105,7 +109,7 @@ export class MealService implements OnInit {
     };
     this.http
       .patch<{ message: string; meal: MealModel }>(
-        'http://localhost:3000/api/meals-update',
+        BACKEND_URL + '/meals-update',
         mealData
       )
       .subscribe(response => {

@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
@@ -11,7 +12,8 @@ const app = express();
 
 mongoose
   .connect(
-    'mongodb://localhost/MyFitness',
+    // 'mongodb://localhost/MyFitness',
+    'mongodb://Biashka:Biashka1985@146.185.141.230:27017/myfoody',
     { useNewUrlParser: true }
   )
   .then(() => {
@@ -24,6 +26,7 @@ mongoose
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use("/", express.static(path.join(__dirname, "myfoody")));
 
 
 
@@ -44,5 +47,9 @@ app.use(ingredientsRoute);
 app.use(mealsRoute);
 app.use('/api/user' , userRoute);
 app.use(weightRoute);
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "myfoody", "index.html" ));
+});
+
 
 module.exports = app;

@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-nav',
@@ -17,12 +18,22 @@ export class MainNavComponent implements OnInit, OnDestroy {
   gender = '-.-';
   startWeight = '-.-';
   goalWeight = '-.-';
+  innerWidth: boolean;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(map(result => result.matches));
 
+
+
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private authService: AuthService,
+    public router: Router
+  ) {}
+
   ngOnInit() {
+    this.innerWidth = window.innerWidth <= 767;
     this.startWeight = this.authService.getStartWeight();
     this.gender = this.authService.getGender();
     this.nickname = this.authService.getUserName();
@@ -34,18 +45,12 @@ export class MainNavComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
       });
     this.authDataSub = this.authService.authDataChanged.subscribe(authData => {
-      console.log(authData);
       this.startWeight = authData.startWeight;
       this.gender = authData.gender;
       this.nickname = authData.nickname;
       this.goalWeight = authData.goalWeight;
     });
   }
-
-  constructor(
-    private breakpointObserver: BreakpointObserver,
-    private authService: AuthService
-  ) {}
 
   onLogout() {
     this.authService.logout();

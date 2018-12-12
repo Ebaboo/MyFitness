@@ -4,6 +4,10 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
+import { environment } from '../../../../environments/environment';
+
+const BACKEND_URL = environment.apiUrl + '/ingredients';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +20,7 @@ export class IngredientService {
   getIngredients() {
     this.http
       .get<{ message: string; ingredients: any }>(
-        'http://localhost:3000/api/ingredients'
+        BACKEND_URL
       )
       // .pipe(
       //   map(ingredientsData => {
@@ -37,12 +41,12 @@ export class IngredientService {
   }
 
   getIngredientById(id: string) {
-    return this.http.get<{_id: string, name: string, calories: number}>('http://localhost:3000/api/ingredients/' + id);
+    return this.http.get<{_id: string, name: string, calories: number}>(BACKEND_URL + '/' + id);
   }
 
   updateIngredient(id: string, ingredientData) {
     this.http
-      .put<{message: string, ingredient: any}>('http://localhost:3000/api/ingredients/' + id, ingredientData)
+      .put<{message: string, ingredient: any}>(BACKEND_URL + '/' + id, ingredientData)
       .subscribe(response => {
         this.ingredients.map(ingredient => {
           if (ingredient._id === response.ingredient._id) {
@@ -64,13 +68,10 @@ export class IngredientService {
     );
     this.http
       .post<{ message: string; ingredient: IngredientModel }>(
-        'http://localhost:3000/api/ingredients',
+        BACKEND_URL,
         ingredient
       )
       .subscribe(responseData => {
-        // console.log(responseData.ingredient);
-        // const ingredientId = responseData.ingredientId;
-        // ingredient._id = ingredientId;
         const recievedIngredient = {
           _id: responseData.ingredient._id,
           name: responseData.ingredient.name,

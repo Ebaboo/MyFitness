@@ -53,12 +53,11 @@ export class ProgressComponent implements OnInit, OnDestroy {
 
   private applyColorToProgressBar() {
     const roundNumber = parseFloat(this.width);
-    const middleColor = 'rgba(74, 255, 33, 1)';
-    const endColor = 'rgba(243, 30, 30, 1)';
+    const middleColor = '#28EA91';
+    const endColor = '#FE5279';
     if (roundNumber < 80) {
-      this.bgColor =
-      middleColor;
-    } else if (roundNumber < 99) {
+      this.bgColor = middleColor;
+    } else {
       this.bgColor = endColor;
     }
   }

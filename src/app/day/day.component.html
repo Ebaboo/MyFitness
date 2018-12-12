@@ -7,8 +7,8 @@
           [ngClass]="{'mat-primary': (i === selectedIndex)}"
           class="chip" (click)='onDaySelected(day, i)'
           *ngFor="let day of lastSevenDays; let i= index" selected>
-          <div class="week-day">{{ day | date: 'EEEE' }}</div>
-          <div class="short_date">{{ day | date: 'd MMM y' }}</div></mat-chip>
+          <div class="week-day">{{ day | date: day }}</div>
+          <div class="short_date">{{ day  }}</div></mat-chip>
       </mat-chip-list>
 
     </div>
@@ -23,6 +23,8 @@
     </div>
   </div>
 
+  <div class="line"></div>
+
   <h2>Add Meal:</h2>
   <div class="row">
     <div class="col-md-12">
@@ -34,7 +36,8 @@
               <mat-select
                 name="ingredientId"
                 id="ingredientId"
-                ngModel>
+                ngModel
+                required>
                 <mat-option *ngFor="let ingredient of ingredients" value="{{
                   ingredient._id }}">
                   <span class="ing_name">{{ ingredient.name }}</span>
@@ -45,7 +48,7 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="col-md-4 form-group">
+          <div class="col-md-2 form-group">
             <mat-form-field>
               <label for="amount">Amount in grams: </label>
               <input
@@ -71,9 +74,8 @@
               </mat-select>
             </mat-form-field>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
+
+          <div class="col-md-2">
             <button mat-raised-button
               type="submit"
               [disabled]="!f.valid"><mat-icon>fastfood</mat-icon> Add meal</button>

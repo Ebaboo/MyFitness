@@ -4,6 +4,10 @@ import { AuthData } from './auth-data.model';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 
+import { environment } from '../../environments/environment';
+
+const BACKEND_URL = environment.apiUrl + '/user';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -57,7 +61,6 @@ export class AuthService {
     gender: string,
     goalWeight: string
   ) {
-    console.log(gender);
     const user: AuthData = {
       email: email,
       password: password,
@@ -67,7 +70,7 @@ export class AuthService {
       goalWeight: goalWeight
     };
     this.http
-      .post('http://localhost:3000/api/user/signup', user)
+      .post(BACKEND_URL + '/signup', user)
       .subscribe(response => {
         this.router.navigate(['/login']);
       });
@@ -91,9 +94,8 @@ export class AuthService {
         startWeight: number;
         gender: string;
         goalWeight: string;
-      }>('http://localhost:3000/api/user/login', user)
+      }>(BACKEND_URL + '/login', user)
       .subscribe(response => {
-        console.log(response);
         this.token = response.token;
         if (response.token) {
           const expiresInDuration = response.expiresIn;
@@ -177,6 +179,13 @@ export class AuthService {
     localStorage.removeItem('startWeight');
     localStorage.removeItem('gender');
     localStorage.removeItem('goalWeight');
+    const authData = {
+      nickname: '-.-',
+      startWeight: '-.-',
+      gender: '-.-',
+      goalWeight: '-.-'
+    };
+    this.authDataChanged.next(authData);
   }
 
   private getAuthData() {
