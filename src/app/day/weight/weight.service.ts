@@ -19,7 +19,7 @@ export class WeightService {
   constructor(private http: HttpClient, private authService: AuthService) {
   }
 
-  getWeightForDay(date: Date) {
+  getWeightForDay(date: string) {
     const queryParams = `?startDate=${date}&endDate=${date}`;
     this.http
       .get<{ message: string; weightData: WeightModel[] }>(

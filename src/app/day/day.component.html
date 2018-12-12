@@ -7,8 +7,8 @@
           [ngClass]="{'mat-primary': (i === selectedIndex)}"
           class="chip" (click)='onDaySelected(day, i)'
           *ngFor="let day of lastSevenDays; let i= index" selected>
-          <div class="week-day">{{ day | date: day }}</div>
-          <div class="short_date">{{ day  }}</div></mat-chip>
+          <div class="week-day">{{ day | date: 'EEEE' }}</div>
+          <div class="short_date">{{ day | date: 'dd-MM-yyyy'  }}</div></mat-chip>
       </mat-chip-list>
 
     </div>

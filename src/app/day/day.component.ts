@@ -35,7 +35,7 @@ export class DayComponent implements OnInit, OnDestroy {
   meals: MealModel[] = [];
   lastSevenDays = [];
   selectedIndex = null;
-  pickedDate: Date;
+  pickedDate: string;
 
   constructor(
     private dayService: DayService,
@@ -63,29 +63,57 @@ export class DayComponent implements OnInit, OnDestroy {
 
   }
 
-  getDates() {
+   getDates() {
     const dateArray = [];
+    const normalDates = [];
     let currentDate = moment(new Date())
       .add(2, 'hours')
       .utc()
       .subtract(7, 'days');
     const stopDates = moment(new Date()).add(1, 'days');
     while (currentDate <= stopDates) {
+      normalDates.push(currentDate.toDate());
       dateArray.push(moment(currentDate).format('DD-MM-YYYY'));
       currentDate = moment(currentDate).add(1, 'days');
     }
-    this.lastSevenDays = dateArray;
-    const formatedCurrentDate = dateArray.length - 1;
-    console.log(this.lastSevenDays);
-    this.onDaySelected(dateArray[(formatedCurrentDate)], formatedCurrentDate);
+    this.lastSevenDays = normalDates;
+    const formatedCurrentDate = normalDates.length - 1;
+    this.onDaySelected(normalDates[(formatedCurrentDate)], formatedCurrentDate);
   }
 
   onDaySelected(day, i) {
-    this.pickedDate = day;
+    const tranformedDate = moment(new Date(day)).format('DD-MM-YYYY');
+    this.pickedDate = tranformedDate;
     this.selectedIndex = i;
-    this.mealService.getMealsForDay(day, day);
-    this.weightService.getWeightForDay(day);
+    this.mealService.getMealsForDay(tranformedDate, tranformedDate);
+    this.weightService.getWeightForDay(tranformedDate);
   }
+
+  // getDates() {
+  //   const dateArray = [];
+  //   const normalDates = [];
+  //   let currentDate = moment(new Date())
+  //     .add(2, 'hours')
+  //     .utc()
+  //     .subtract(7, 'days');
+  //   const stopDates = moment(new Date()).add(1, 'days');
+  //   while (currentDate <= stopDates) {
+  //     normalDates.push(currentDate.toDate());
+  //     dateArray.push(moment(currentDate).format('DD-MM-YYYY'));
+  //     currentDate = moment(currentDate).add(1, 'days');
+  //   }
+  //   this.lastSevenDays = dateArray;
+  //   const formatedCurrentDate = dateArray.length - 1;
+  //   console.log(normalDates);
+  //   this.onDaySelected(dateArray[(formatedCurrentDate)], formatedCurrentDate);
+  // }
+
+  // onDaySelected(day, i) {
+  //   this.pickedDate = day;
+  //   this.selectedIndex = i;
+  //   this.mealService.getMealsForDay(day, day);
+  //   this.weightService.getWeightForDay(day);
+  // }
 
   onSubmit() {
     const formData = this.foodForm.value;

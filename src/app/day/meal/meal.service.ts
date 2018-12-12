@@ -42,7 +42,7 @@ export class MealService implements OnInit {
       });
   }
 
-  addMeal(ingredientId: string, amount: number, mealType: number, day: Date) {
+  addMeal(ingredientId: string, amount: number, mealType: number, day: string) {
     const meal = {
       ingredientId: ingredientId,
       mealType: mealType,

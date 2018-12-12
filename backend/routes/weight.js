@@ -25,7 +25,6 @@ router.get('/api/weight', checkAuth, (req, res, next) => {
   })
     .sort('date')
     .then(weight => {
-      console.log(weight);
       res.status(201).json({
         message: 'weight found',
         weightData: weight
@@ -54,7 +53,6 @@ router.post('/api/weight', checkAuth, (req, res, next) => {
 router.patch('/api/weight', (req, res, next) => {
   const weightId = req.body.weightId;
   const weight = req.body.amount;
-  console.log(weightId, weight);
   Weight.findOneAndUpdate({_id: weightId} , {weight: weight},
     { new: true }
   ).then(weight => {
