@@ -1,5 +1,5 @@
 <mat-sidenav-container *ngIf="innerWidth; else bigMenu" class="sidenav-container">
-  <mat-sidenav
+  <mat-sidenav 
   #sidenav (click)="sidenav.toggle()" #drawer class="sidenav" fixedInViewport="false"
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
@@ -61,7 +61,7 @@
 
   <ng-template #bigMenu>
       <mat-sidenav-container *ngIf="!innerWidth; else bigMenu" class="sidenav-container">
-    <mat-sidenav #drawer class="sidenav"
+    <mat-sidenav *ngIf="userIsAuthenticated" #drawer class="sidenav"
       fixedInViewport="false"
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"

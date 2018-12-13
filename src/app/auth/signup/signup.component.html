@@ -1,7 +1,7 @@
 <div class="container">
   <div class="col-md-6 col-md-offset-3">
     <mat-card>
-        <h3 style="text-align: center"><i class="fa fa-user"></i>Login to
+        <h3 style="text-align: center"><i class="fa fa-user"></i>Signup to
           dashboard</h3>
       <form (submit)="onSignup(loginForm)" #loginForm="ngForm">
           <p>Email: </p>
@@ -87,6 +87,8 @@
           type="submit">Signup
         </button>
       </form>
+      <p class="login">I don’t have an account yet <a
+        [routerLink]="['/login']"> login</a></p>
     </mat-card>
   </div>
 </div>

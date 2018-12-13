@@ -59,19 +59,36 @@ export class DayComponent implements OnInit, OnDestroy {
         this.meals = meals;
       }
     );
-    this.getDates();
+    this.getDates1();
 
   }
 
-   getDates() {
+  //  getDates() {
+  //   const dateArray = [];
+  //   const normalDates = [];
+  //   let currentDate = moment(new Date())
+  //     .utc()
+  //     .add(2, 'hours')
+  //     .subtract(7, 'days');
+  //   const stopDates = moment(new Date()).add(1, 'days');
+  //   while (currentDate <= stopDates) {
+  //     normalDates.push(currentDate.toDate());
+  //     dateArray.push(moment(currentDate).format('DD-MM-YYYY'));
+  //     currentDate = moment(currentDate).add(1, 'days');
+  //   }
+  //   this.lastSevenDays = normalDates;
+  //   const formatedCurrentDate = normalDates.length - 1;
+  //   this.onDaySelected(normalDates[(formatedCurrentDate)], formatedCurrentDate);
+  // }
+
+  getDates1() {
     const dateArray = [];
     const normalDates = [];
     let currentDate = moment(new Date())
-      .add(2, 'hours')
       .utc()
       .subtract(7, 'days');
-    const stopDates = moment(new Date()).add(1, 'days');
-    while (currentDate <= stopDates) {
+    const stopDate = moment(new Date(), 'DD-MM-YYYY');
+    while (currentDate <= stopDate) {
       normalDates.push(currentDate.toDate());
       dateArray.push(moment(currentDate).format('DD-MM-YYYY'));
       currentDate = moment(currentDate).add(1, 'days');
@@ -82,11 +99,11 @@ export class DayComponent implements OnInit, OnDestroy {
   }
 
   onDaySelected(day, i) {
-    const tranformedDate = moment(new Date(day)).format('DD-MM-YYYY');
-    this.pickedDate = tranformedDate;
+    const newDate = moment(new Date(day)).format('DD-MM-YYYY');
+    this.pickedDate = newDate;
     this.selectedIndex = i;
-    this.mealService.getMealsForDay(tranformedDate, tranformedDate);
-    this.weightService.getWeightForDay(tranformedDate);
+    this.mealService.getMealsForDay(newDate, newDate);
+    this.weightService.getWeightForDay(newDate);
   }
 
   // getDates() {

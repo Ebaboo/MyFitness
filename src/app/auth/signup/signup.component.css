@@ -38,3 +38,14 @@ p {
   padding-bottom: 0;
   font-weight: 600;
 }
+
+.login {
+  margin-top: 25px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.login a {
+  text-decoration: underline;
+  color: #46b4fe;
+}
